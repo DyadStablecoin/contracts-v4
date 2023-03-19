@@ -12,6 +12,7 @@ contract VaultFactory {
   event Deployed(address dNft, address dyad);
 
   address public immutable vaultImpl;
+  address public immutable dyadImpl;
 
   // collateral => oracle => deployed
   mapping(address => mapping(address => bool)) public deployed;
@@ -20,10 +21,12 @@ contract VaultFactory {
 
   constructor(
     address _dNft,
-    address _vaultImpl
+    address _vaultImpl, 
+    address _dyadImpl
   ) { 
     dNft      = DNft(_dNft); 
     vaultImpl = _vaultImpl;
+    dyadImpl  = _dyadImpl;
   }
 
   function deploy(
@@ -37,7 +40,9 @@ contract VaultFactory {
     ) {
       require(!deployed[_collateral][_oracle]);
 
-      Dyad dyad = new Dyad(
+      address dyad = dyadImpl.clone();
+
+      Dyad(dyad).initialize(
         string.concat(_collateralSymbol, "DYAD-"),
         string.concat("d", _collateralSymbol)
       );
@@ -52,7 +57,7 @@ contract VaultFactory {
       );
 
       dNft.setLiquidator(address(vault)); 
-      dyad.transferOwnership(address(vault));
+      Dyad(dyad).setOwner(address(vault));
       deployed[_collateral][_oracle] = true;
       emit Deployed(address(vault), address(dyad));
       return (address(vault), address(dyad));
