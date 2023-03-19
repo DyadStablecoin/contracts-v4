@@ -17,27 +17,30 @@ contract Factory {
   constructor(address _dNft) { dNft = DNft(_dNft); }
 
   function deploy(
-    address _collateral, 
-    address _oracle,
-    string memory _flavor 
+      address _collateral, 
+      address _oracle,
+      string memory _flavor 
   ) public returns (address, address) {
-    require(!deployed[_collateral][_oracle]);
+      require(
+        !deployed[_collateral][_oracle] &&
+        !deployed[_oracle][_collateral]
+      );
 
-    Dyad dyad = new Dyad(
-      string.concat("DYAD-", _flavor),
-      string.concat("d", _flavor)
-    );
-    Vault vault = new Vault(
-      address(dNft), 
-      address(dyad),
-      _collateral,
-      msg.sender
-    );
+      Dyad dyad = new Dyad(
+        string.concat(_flavor, "DYAD-"),
+        string.concat("d", _flavor)
+      );
+      Vault vault = new Vault(
+        address(dNft), 
+        address(dyad),
+        _collateral,
+        msg.sender
+      );
 
-    dyad.transferOwnership(address(vault));
-    dNft.setLiquidator(address(vault)); 
-    deployed[_collateral][_oracle] = true;
-    emit Deployed(address(vault), address(dyad));
-    return (address(vault), address(dyad));
+      dyad.transferOwnership(address(vault));
+      dNft.setLiquidator(address(vault)); 
+      deployed[_collateral][_oracle] = true;
+      emit Deployed(address(vault), address(dyad));
+      return (address(vault), address(dyad));
   }
 }
