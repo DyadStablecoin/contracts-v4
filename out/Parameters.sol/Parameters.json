@@ -1,0 +1,471 @@
+{
+  "abi": [],
+  "bytecode": {
+    "object": "0x6080604052600080546001600160a01b031990811673ed6715d2172bfd50c2dbf608615c2ab49790480390811790925560018054821673d4a33860578de61dbabdc8bfdb98fd742fa7028e17905560028054821673b4fbf271143f4fbf7b91a5ded31805e42b2208d6179055670de0b6b3a7640000600355600480548216909217909155600580548216735f4ec3df9cbd43714fe2740f5e3616155c5b84191790556006805490911673c02aaa39b223fe8d0a0e5c4f27ead9083c756cc217905569010f0cf064dd5920000060075534801560d957600080fd5b50603f806100e86000396000f3fe6080604052600080fdfea2646970667358221220c5069b6148e7b18a2e43ef10065311388603612aae995d543ecd358195a5eb0664736f6c63430008110033",
+    "sourceMap": "58:652:33:-:0;;;129:66;;;-1:-1:-1;;;;;;129:66:33;;;153:42;129:66;;;;;;;199;;;;223:42;199:66;;;269;;;;;293:42;269:66;;;378:4;339:43;;440:67;;;;;;;;;;;511;;;;;536:42;511:67;;;582;;;;;;607:42;582:67;;;693:7;653:47;;58:652;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x6080604052600080fdfea2646970667358221220c5069b6148e7b18a2e43ef10065311388603612aae995d543ecd358195a5eb0664736f6c63430008110033",
+    "sourceMap": "58:652:33:-:0;;;;;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/Parameters.sol\":\"Parameters\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":@openzeppelin/=lib/openzeppelin-contracts/\",\":@solmate/=lib/solmate/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":solmate/=lib/solmate/src/\"]},\"sources\":{\"src/Parameters.sol\":{\"keccak256\":\"0xe0f5aa9c9cbee50375bfa78eba66b1d2088f30d6abc403957160c4a9e44c12a1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3ddcf9c7e541cc08a76a5947ed07cfdbcc80273aac9d5787157bcbcdba47514\",\"dweb:/ipfs/Qmb6P73C2e83NhSkg3mBZW7jzmwgcwkLUs2PF1G7qafkzP\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.17+commit.8df45f5f"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":@openzeppelin/=lib/openzeppelin-contracts/",
+        ":@solmate/=lib/solmate/",
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/",
+        ":solmate/=lib/solmate/src/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/Parameters.sol": "Parameters"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/Parameters.sol": {
+        "keccak256": "0xe0f5aa9c9cbee50375bfa78eba66b1d2088f30d6abc403957160c4a9e44c12a1",
+        "urls": [
+          "bzz-raw://b3ddcf9c7e541cc08a76a5947ed07cfdbcc80273aac9d5787157bcbcdba47514",
+          "dweb:/ipfs/Qmb6P73C2e83NhSkg3mBZW7jzmwgcwkLUs2PF1G7qafkzP"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/Parameters.sol",
+    "id": 28238,
+    "exportedSymbols": {
+      "Parameters": [
+        28237
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:679:33",
+    "nodes": [
+      {
+        "id": 28212,
+        "nodeType": "PragmaDirective",
+        "src": "32:24:33",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "=",
+          "0.8",
+          ".17"
+        ]
+      },
+      {
+        "id": 28237,
+        "nodeType": "ContractDefinition",
+        "src": "58:652:33",
+        "nodes": [
+          {
+            "id": 28215,
+            "nodeType": "VariableDeclaration",
+            "src": "129:66:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "GOERLI_OWNER",
+            "nameLocation": "137:12:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28213,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "129:7:33",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307845643637313544323137324246643530433244424636303836313563324142343937393034383033",
+              "id": 28214,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "153:42:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0xEd6715D2172BFd50C2DBF608615c2AB497904803"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 28218,
+            "nodeType": "VariableDeclaration",
+            "src": "199:66:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "GOERLI_ORACLE",
+            "nameLocation": "207:13:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28216,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "199:7:33",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307844346133333836303537384465363144424162446338424664623938464437343266413730323865",
+              "id": 28217,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "223:42:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 28221,
+            "nodeType": "VariableDeclaration",
+            "src": "269:66:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "GOERLI_WETH",
+            "nameLocation": "277:11:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28219,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "269:7:33",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307842344642463237313134334634464266374239314135646564333138303565343262323230386436",
+              "id": 28220,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "293:42:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 28224,
+            "nodeType": "VariableDeclaration",
+            "src": "339:43:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "GOERLI_MIN_MINT_DYAD_DEPOSIT",
+            "nameLocation": "347:28:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28222,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "339:4:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "31653138",
+              "id": 28223,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "378:4:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_1000000000000000000_by_1",
+                "typeString": "int_const 1000000000000000000"
+              },
+              "value": "1e18"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 28227,
+            "nodeType": "VariableDeclaration",
+            "src": "440:67:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "MAINNET_OWNER",
+            "nameLocation": "448:13:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28225,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "440:7:33",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307845643637313544323137324246643530433244424636303836313563324142343937393034383033",
+              "id": 28226,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "465:42:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0xEd6715D2172BFd50C2DBF608615c2AB497904803"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 28230,
+            "nodeType": "VariableDeclaration",
+            "src": "511:67:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "MAINNET_ORACLE",
+            "nameLocation": "519:14:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28228,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "511:7:33",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307835663465433344663963626434333731344645323734306635453336313631353563356238343139",
+              "id": 28229,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "536:42:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 28233,
+            "nodeType": "VariableDeclaration",
+            "src": "582:67:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "MAINNET_WETH",
+            "nameLocation": "590:12:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28231,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "582:7:33",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307843303261614133396232323346453844304130653543344632376541443930383343373536436332",
+              "id": 28232,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "607:42:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 28236,
+            "nodeType": "VariableDeclaration",
+            "src": "653:47:33",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "MAINNET_MIN_MINT_DYAD_DEPOSIT",
+            "nameLocation": "661:29:33",
+            "scope": 28237,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28234,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "653:4:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "35303030653138",
+              "id": 28235,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "693:7:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_5000000000000000000000_by_1",
+                "typeString": "int_const 5000000000000000000000"
+              },
+              "value": "5000e18"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Parameters",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          28237
+        ],
+        "name": "Parameters",
+        "nameLocation": "67:10:33",
+        "scope": 28238,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 33
+}

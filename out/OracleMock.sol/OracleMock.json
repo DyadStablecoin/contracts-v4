@@ -1,0 +1,658 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "latestRoundData",
+      "outputs": [
+        {
+          "internalType": "uint80",
+          "name": "roundId",
+          "type": "uint80"
+        },
+        {
+          "internalType": "int256",
+          "name": "answer",
+          "type": "int256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "startedAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "updatedAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint80",
+          "name": "answeredInRound",
+          "type": "uint80"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "price",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_price",
+          "type": "int256"
+        }
+      ],
+      "name": "setPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x608060405264174876e80060005534801561001957600080fd5b5060ec806100286000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063a035b1fe146041578063f7a3080614605c578063feaf968c14606e575b600080fd5b604960005481565b6040519081526020015b60405180910390f35b606c6067366004609e565b600055565b005b600054604080516001808252602082019390935290810182905260608101829052608081019190915260a0016053565b60006020828403121560af57600080fd5b503591905056fea2646970667358221220a2e474a96204c0dc4fd2c37a88085548e9e133d007019e765d897f89d887badb64736f6c63430008110033",
+    "sourceMap": "58:355:49:-:0;;;101:6;82:25;;58:355;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063a035b1fe146041578063f7a3080614605c578063feaf968c14606e575b600080fd5b604960005481565b6040519081526020015b60405180910390f35b606c6067366004609e565b600055565b005b600054604080516001808252602082019390935290810182905260608101829052608081019190915260a0016053565b60006020828403121560af57600080fd5b503591905056fea2646970667358221220a2e474a96204c0dc4fd2c37a88085548e9e133d007019e765d897f89d887badb64736f6c63430008110033",
+    "sourceMap": "58:355:49:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;82:25;;;;;;;;;158::50;;;146:2;131:18;82:25:49;;;;;;;;123:64;;;;;;:::i;:::-;168:5;:14;123:64;;;191:220;246:14;387:5;191:220;;;384:1;672:34:50;;;737:2;722:18;;715:34;;;;765:18;;;758:34;;;823:2;808:18;;801:34;;;866:3;851:19;;844:44;;;;618:3;603:19;191:220:49;378:516:50;194:179;252:6;305:2;293:9;284:7;280:23;276:32;273:52;;;321:1;318;311:12;273:52;-1:-1:-1;344:23:50;;194:179;-1:-1:-1;194:179:50:o",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "latestRoundData()": "feaf968c",
+    "price()": "a035b1fe",
+    "setPrice(int256)": "f7a30806"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"latestRoundData\",\"outputs\":[{\"internalType\":\"uint80\",\"name\":\"roundId\",\"type\":\"uint80\"},{\"internalType\":\"int256\",\"name\":\"answer\",\"type\":\"int256\"},{\"internalType\":\"uint256\",\"name\":\"startedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"updatedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint80\",\"name\":\"answeredInRound\",\"type\":\"uint80\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"_price\",\"type\":\"int256\"}],\"name\":\"setPrice\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"test/OracleMock.sol\":\"OracleMock\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":@openzeppelin/=lib/openzeppelin-contracts/\",\":@solmate/=lib/solmate/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":solmate/=lib/solmate/src/\"]},\"sources\":{\"test/OracleMock.sol\":{\"keccak256\":\"0xe2ddf97f3dff253ebe213ec70ff2eff348aab7ec21fcc604d2aed303de3aa783\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7cf85f08ab44364c13477a2c3da6e303c36f9e06d1e7ec6d37ca83ec425ac21c\",\"dweb:/ipfs/QmdzZuUj9daUP6Mavpwr34fG9UN66378YMgxpWYBoDVBTK\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.17+commit.8df45f5f"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "latestRoundData",
+          "outputs": [
+            {
+              "internalType": "uint80",
+              "name": "roundId",
+              "type": "uint80"
+            },
+            {
+              "internalType": "int256",
+              "name": "answer",
+              "type": "int256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "startedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "updatedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint80",
+              "name": "answeredInRound",
+              "type": "uint80"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "price",
+          "outputs": [
+            {
+              "internalType": "int256",
+              "name": "",
+              "type": "int256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "int256",
+              "name": "_price",
+              "type": "int256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "setPrice"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":@openzeppelin/=lib/openzeppelin-contracts/",
+        ":@solmate/=lib/solmate/",
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/",
+        ":solmate/=lib/solmate/src/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "test/OracleMock.sol": "OracleMock"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "test/OracleMock.sol": {
+        "keccak256": "0xe2ddf97f3dff253ebe213ec70ff2eff348aab7ec21fcc604d2aed303de3aa783",
+        "urls": [
+          "bzz-raw://7cf85f08ab44364c13477a2c3da6e303c36f9e06d1e7ec6d37ca83ec425ac21c",
+          "dweb:/ipfs/QmdzZuUj9daUP6Mavpwr34fG9UN66378YMgxpWYBoDVBTK"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "test/OracleMock.sol",
+    "id": 32664,
+    "exportedSymbols": {
+      "OracleMock": [
+        32663
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:382:49",
+    "nodes": [
+      {
+        "id": 32628,
+        "nodeType": "PragmaDirective",
+        "src": "32:24:49",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "=",
+          "0.8",
+          ".17"
+        ]
+      },
+      {
+        "id": 32663,
+        "nodeType": "ContractDefinition",
+        "src": "58:355:49",
+        "nodes": [
+          {
+            "id": 32631,
+            "nodeType": "VariableDeclaration",
+            "src": "82:25:49",
+            "nodes": [],
+            "constant": false,
+            "functionSelector": "a035b1fe",
+            "mutability": "mutable",
+            "name": "price",
+            "nameLocation": "93:5:49",
+            "scope": 32663,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_int256",
+              "typeString": "int256"
+            },
+            "typeName": {
+              "id": 32629,
+              "name": "int",
+              "nodeType": "ElementaryTypeName",
+              "src": "82:3:49",
+              "typeDescriptions": {
+                "typeIdentifier": "t_int256",
+                "typeString": "int256"
+              }
+            },
+            "value": {
+              "hexValue": "313030306538",
+              "id": 32630,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "101:6:49",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_100000000000_by_1",
+                "typeString": "int_const 100000000000"
+              },
+              "value": "1000e8"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 32641,
+            "nodeType": "FunctionDefinition",
+            "src": "123:64:49",
+            "nodes": [],
+            "body": {
+              "id": 32640,
+              "nodeType": "Block",
+              "src": "162:25:49",
+              "nodes": [],
+              "statements": [
+                {
+                  "expression": {
+                    "id": 32638,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 32636,
+                      "name": "price",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 32631,
+                      "src": "168:5:49",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_int256",
+                        "typeString": "int256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 32637,
+                      "name": "_price",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 32633,
+                      "src": "176:6:49",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_int256",
+                        "typeString": "int256"
+                      }
+                    },
+                    "src": "168:14:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "id": 32639,
+                  "nodeType": "ExpressionStatement",
+                  "src": "168:14:49"
+                }
+              ]
+            },
+            "functionSelector": "f7a30806",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setPrice",
+            "nameLocation": "132:8:49",
+            "parameters": {
+              "id": 32634,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 32633,
+                  "mutability": "mutable",
+                  "name": "_price",
+                  "nameLocation": "145:6:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32641,
+                  "src": "141:10:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 32632,
+                    "name": "int",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "141:3:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "140:12:49"
+            },
+            "returnParameters": {
+              "id": 32635,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "162:0:49"
+            },
+            "scope": 32663,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 32662,
+            "nodeType": "FunctionDefinition",
+            "src": "191:220:49",
+            "nodes": [],
+            "body": {
+              "id": 32661,
+              "nodeType": "Block",
+              "src": "368:43:49",
+              "nodes": [],
+              "statements": [
+                {
+                  "expression": {
+                    "components": [
+                      {
+                        "hexValue": "31",
+                        "id": 32654,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "384:1:49",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      {
+                        "id": 32655,
+                        "name": "price",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 32631,
+                        "src": "387:5:49",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_int256",
+                          "typeString": "int256"
+                        }
+                      },
+                      {
+                        "hexValue": "31",
+                        "id": 32656,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "394:1:49",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      {
+                        "hexValue": "31",
+                        "id": 32657,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "397:1:49",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      {
+                        "hexValue": "31",
+                        "id": 32658,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "400:1:49",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      }
+                    ],
+                    "id": 32659,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "383:19:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_rational_1_by_1_$_t_int256_$_t_rational_1_by_1_$_t_rational_1_by_1_$_t_rational_1_by_1_$",
+                      "typeString": "tuple(int_const 1,int256,int_const 1,int_const 1,int_const 1)"
+                    }
+                  },
+                  "functionReturnParameters": 32653,
+                  "id": 32660,
+                  "nodeType": "Return",
+                  "src": "376:26:49"
+                }
+              ]
+            },
+            "functionSelector": "feaf968c",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "latestRoundData",
+            "nameLocation": "200:15:49",
+            "parameters": {
+              "id": 32642,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "215:2:49"
+            },
+            "returnParameters": {
+              "id": 32653,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 32644,
+                  "mutability": "mutable",
+                  "name": "roundId",
+                  "nameLocation": "253:7:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32662,
+                  "src": "246:14:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint80",
+                    "typeString": "uint80"
+                  },
+                  "typeName": {
+                    "id": 32643,
+                    "name": "uint80",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "246:6:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint80",
+                      "typeString": "uint80"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 32646,
+                  "mutability": "mutable",
+                  "name": "answer",
+                  "nameLocation": "275:6:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32662,
+                  "src": "268:13:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 32645,
+                    "name": "int256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "268:6:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 32648,
+                  "mutability": "mutable",
+                  "name": "startedAt",
+                  "nameLocation": "297:9:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32662,
+                  "src": "289:17:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 32647,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "289:7:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 32650,
+                  "mutability": "mutable",
+                  "name": "updatedAt",
+                  "nameLocation": "322:9:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32662,
+                  "src": "314:17:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 32649,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "314:7:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 32652,
+                  "mutability": "mutable",
+                  "name": "answeredInRound",
+                  "nameLocation": "346:15:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32662,
+                  "src": "339:22:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint80",
+                    "typeString": "uint80"
+                  },
+                  "typeName": {
+                    "id": 32651,
+                    "name": "uint80",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "339:6:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint80",
+                      "typeString": "uint80"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "238:129:49"
+            },
+            "scope": 32663,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "OracleMock",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          32663
+        ],
+        "name": "OracleMock",
+        "nameLocation": "67:10:49",
+        "scope": 32664,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 49
+}
