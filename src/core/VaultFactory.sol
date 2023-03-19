@@ -13,7 +13,7 @@ contract VaultFactory {
 
   address public immutable vaultImpl;
 
-  // token => oracle => deployed
+  // collateral => oracle => deployed
   mapping(address => mapping(address => bool)) public deployed;
 
   DNft public dNft;
@@ -22,7 +22,7 @@ contract VaultFactory {
     address _dNft,
     address _vaultImpl
   ) { 
-    dNft           = DNft(_dNft); 
+    dNft      = DNft(_dNft); 
     vaultImpl = _vaultImpl;
   }
 
@@ -30,11 +30,12 @@ contract VaultFactory {
       address _collateral, 
       address _oracle,
       string memory _flavor 
-  ) public returns (address, address) {
-      require(
-        !deployed[_collateral][_oracle] &&
-        !deployed[_oracle][_collateral]
-      );
+  ) public 
+    returns (
+      address,
+      address
+    ) {
+      require(!deployed[_collateral][_oracle]);
 
       Dyad dyad = new Dyad(
         string.concat(_flavor, "DYAD-"),
