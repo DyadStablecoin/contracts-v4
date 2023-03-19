@@ -2492,8 +2492,8 @@
       }
     },
     "src/core/VaultFactory.sol": {
-      "lastModificationDate": 1679233872577,
-      "contentHash": "664621fcfd5298f17b6553b22833da39",
+      "lastModificationDate": 1679234016309,
+      "contentHash": "3e5dea593f4153219d503596d69a13e9",
       "sourceName": "src/core/VaultFactory.sol",
       "solcConfig": {
         "settings": {

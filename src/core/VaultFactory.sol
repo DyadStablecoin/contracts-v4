@@ -40,16 +40,16 @@ contract VaultFactory {
     ) {
       require(!deployed[_collateral][_oracle]);
 
-      address dyad = dyadImpl.clone();
+      Dyad dyad = Dyad(dyadImpl.clone());
 
-      Dyad(dyad).initialize(
+      dyad.initialize(
         string.concat(_collateralSymbol, "DYAD-"),
         string.concat("d", _collateralSymbol)
       );
 
-      address vault = vaultImpl.clone();
+      Vault vault = Vault(vaultImpl.clone());
 
-      Vault(vault).initialize(
+      vault.initialize(
         address(dNft), 
         address(dyad),
         _collateral,
@@ -57,7 +57,7 @@ contract VaultFactory {
       );
 
       dNft.setLiquidator(address(vault)); 
-      Dyad(dyad).setOwner(address(vault));
+      dyad.setOwner(address(vault));
       deployed[_collateral][_oracle] = true;
       emit Deployed(address(vault), address(dyad));
       return (address(vault), address(dyad));
