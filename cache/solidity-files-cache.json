@@ -1630,8 +1630,8 @@
         "src/Parameters.sol",
         "src/core/DNft.sol",
         "src/core/Dyad.sol",
-        "src/core/Factory.sol",
         "src/core/Vault.sol",
+        "src/core/VaultFactory.sol",
         "src/interfaces/AggregatorV3Interface.sol",
         "src/interfaces/IDNft.sol"
       ],
@@ -1710,8 +1710,8 @@
         "src/Parameters.sol",
         "src/core/DNft.sol",
         "src/core/Dyad.sol",
-        "src/core/Factory.sol",
         "src/core/Vault.sol",
+        "src/core/VaultFactory.sol",
         "src/interfaces/AggregatorV3Interface.sol",
         "src/interfaces/IDNft.sol"
       ],
@@ -1723,8 +1723,8 @@
       }
     },
     "script/deploy/DeployBase.s.sol": {
-      "lastModificationDate": 1679216720211,
-      "contentHash": "7720f69f74cf448017bb627ff1420304",
+      "lastModificationDate": 1679217217562,
+      "contentHash": "83390c224b1e387183b456675f825e2a",
       "sourceName": "script/deploy/DeployBase.s.sol",
       "solcConfig": {
         "settings": {
@@ -1789,8 +1789,8 @@
         "src/Parameters.sol",
         "src/core/DNft.sol",
         "src/core/Dyad.sol",
-        "src/core/Factory.sol",
         "src/core/Vault.sol",
+        "src/core/VaultFactory.sol",
         "src/interfaces/AggregatorV3Interface.sol",
         "src/interfaces/IDNft.sol"
       ],
@@ -2043,7 +2043,7 @@
       }
     },
     "src/core/Dyad.sol": {
-      "lastModificationDate": 1679209512269,
+      "lastModificationDate": 1679218745652,
       "contentHash": "6f02f1a1c68ae1ab1d871ee6916f7516",
       "sourceName": "src/core/Dyad.sol",
       "solcConfig": {
@@ -2082,72 +2082,6 @@
       "artifacts": {
         "Dyad": {
           "0.8.17+commit.8df45f5f.Darwin.appleclang": "Dyad.sol/Dyad.json"
-        }
-      }
-    },
-    "src/core/Factory.sol": {
-      "lastModificationDate": 1679216456119,
-      "contentHash": "59cf071c08a9e762d59c6ec4091e1303",
-      "sourceName": "src/core/Factory.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "ipfs",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
-        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/IERC721Metadata.sol",
-        "lib/openzeppelin-contracts/contracts/utils/Address.sol",
-        "lib/openzeppelin-contracts/contracts/utils/Context.sol",
-        "lib/openzeppelin-contracts/contracts/utils/Strings.sol",
-        "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol",
-        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
-        "lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
-        "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol",
-        "lib/solmate/src/auth/Owned.sol",
-        "lib/solmate/src/tokens/ERC20.sol",
-        "lib/solmate/src/utils/FixedPointMathLib.sol",
-        "lib/solmate/src/utils/SafeTransferLib.sol",
-        "src/core/DNft.sol",
-        "src/core/Dyad.sol",
-        "src/core/Vault.sol",
-        "src/interfaces/AggregatorV3Interface.sol",
-        "src/interfaces/IDNft.sol"
-      ],
-      "versionRequirement": "=0.8.17",
-      "artifacts": {
-        "VaultFactory": {
-          "0.8.17+commit.8df45f5f.Darwin.appleclang": "Factory.sol/VaultFactory.json"
         }
       }
     },
@@ -2212,6 +2146,72 @@
       "artifacts": {
         "Vault": {
           "0.8.17+commit.8df45f5f.Darwin.appleclang": "Vault.sol/Vault.json"
+        }
+      }
+    },
+    "src/core/VaultFactory.sol": {
+      "lastModificationDate": 1679217100136,
+      "contentHash": "434e649a7ccd00d3f882242e5ddf2327",
+      "sourceName": "src/core/VaultFactory.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Context.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Strings.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
+        "lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
+        "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol",
+        "lib/solmate/src/auth/Owned.sol",
+        "lib/solmate/src/tokens/ERC20.sol",
+        "lib/solmate/src/utils/FixedPointMathLib.sol",
+        "lib/solmate/src/utils/SafeTransferLib.sol",
+        "src/core/DNft.sol",
+        "src/core/Dyad.sol",
+        "src/core/Vault.sol",
+        "src/interfaces/AggregatorV3Interface.sol",
+        "src/interfaces/IDNft.sol"
+      ],
+      "versionRequirement": "=0.8.17",
+      "artifacts": {
+        "VaultFactory": {
+          "0.8.17+commit.8df45f5f.Darwin.appleclang": "VaultFactory.sol/VaultFactory.json"
         }
       }
     },
@@ -2418,8 +2418,8 @@
       }
     },
     "test/BaseTest.sol": {
-      "lastModificationDate": 1679216232502,
-      "contentHash": "c7573d7731732039c54e74bd04e13a63",
+      "lastModificationDate": 1679217229814,
+      "contentHash": "e356fedc515a2a5c4fc1306dce25be55",
       "sourceName": "test/BaseTest.sol",
       "solcConfig": {
         "settings": {
@@ -2489,8 +2489,8 @@
         "src/Parameters.sol",
         "src/core/DNft.sol",
         "src/core/Dyad.sol",
-        "src/core/Factory.sol",
         "src/core/Vault.sol",
+        "src/core/VaultFactory.sol",
         "src/interfaces/AggregatorV3Interface.sol",
         "src/interfaces/IDNft.sol",
         "test/OracleMock.sol"
@@ -2574,8 +2574,8 @@
         "src/Parameters.sol",
         "src/core/DNft.sol",
         "src/core/Dyad.sol",
-        "src/core/Factory.sol",
         "src/core/Vault.sol",
+        "src/core/VaultFactory.sol",
         "src/interfaces/AggregatorV3Interface.sol",
         "src/interfaces/IDNft.sol",
         "src/libraries/SharesMath.sol",
@@ -2701,8 +2701,8 @@
         "src/Parameters.sol",
         "src/core/DNft.sol",
         "src/core/Dyad.sol",
-        "src/core/Factory.sol",
         "src/core/Vault.sol",
+        "src/core/VaultFactory.sol",
         "src/interfaces/AggregatorV3Interface.sol",
         "src/interfaces/IDNft.sol",
         "test/BaseTest.sol",

@@ -7,7 +7,7 @@ import {DNft} from "../../src/core/DNft.sol";
 import {IDNft} from "../../src/interfaces/IDNft.sol";
 import {Parameters} from "../../src/Parameters.sol";
 import {DNft} from "../../src/core/DNft.sol";
-import {VaultFactory} from "../../src/core/Factory.sol";
+import {VaultFactory} from "../../src/core/VaultFactory.sol";
 import {Vault} from "../../src/core/Vault.sol";
 
 contract DeployBase is Script, Parameters {

@@ -23,12 +23,12 @@
   ],
   "bytecode": {
     "object": "0x6080604052600c805460ff19166001179055348015601c57600080fd5b50608f8061002b6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c8063c0406226146037578063f8ccbf47146039575b600080fd5b005b600c5460459060ff1681565b604051901515815260200160405180910390f3fea2646970667358221220137b7c367930f485a208d0a190760046c6755d9f0eb82a6776835f279a6e10e064736f6c63430008110033",
-    "sourceMap": "216:1338:33:-:0;;;758:28:2;;;-1:-1:-1;;758:28:2;782:4;758:28;;;216:1338:33;;;;;;;;;;;;;;;;",
+    "sourceMap": "216:1338:35:-:0;;;758:28:2;;;-1:-1:-1;;758:28:2;782:4;758:28;;;216:1338:35;;;;;;;;;;;;;;;;",
     "linkReferences": {}
   },
   "deployedBytecode": {
     "object": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c8063c0406226146037578063f8ccbf47146039575b600080fd5b005b600c5460459060ff1681565b604051901515815260200160405180910390f3fea2646970667358221220137b7c367930f485a208d0a190760046c6755d9f0eb82a6776835f279a6e10e064736f6c63430008110033",
-    "sourceMap": "216:1338:33:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;244:1308;;758:28:2;;;;;;;;;;;;179:14:52;;172:22;154:41;;142:2;127:18;758:28:2;;;;;;",
+    "sourceMap": "216:1338:35:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;244:1308;;758:28:2;;;;;;;;;;;;179:14:54;;172:22;154:41;;142:2;127:18;758:28:2;;;;;;",
     "linkReferences": {}
   },
   "methodIdentifiers": {
@@ -229,16 +229,16 @@
   },
   "ast": {
     "absolutePath": "script/Read.s.sol",
-    "id": 30758,
+    "id": 31007,
     "exportedSymbols": {
       "Dyad": [
-        31547
+        31870
       ],
       "IDNft": [
-        32405
+        32764
       ],
       "Read": [
-        30757
+        31006
       ],
       "Script": [
         1892
@@ -278,12 +278,12 @@
       ]
     },
     "nodeType": "SourceUnit",
-    "src": "32:1523:33",
+    "src": "32:1523:35",
     "nodes": [
       {
-        "id": 30744,
+        "id": 30993,
         "nodeType": "PragmaDirective",
-        "src": "32:24:33",
+        "src": "32:24:35",
         "nodes": [],
         "literals": [
           "solidity",
@@ -293,50 +293,50 @@
         ]
       },
       {
-        "id": 30745,
+        "id": 30994,
         "nodeType": "ImportDirective",
-        "src": "58:30:33",
+        "src": "58:30:35",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/Script.sol",
         "file": "forge-std/Script.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 30758,
+        "scope": 31007,
         "sourceUnit": 1893,
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "id": 30746,
+        "id": 30995,
         "nodeType": "ImportDirective",
-        "src": "89:31:33",
+        "src": "89:31:35",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/console.sol",
         "file": "forge-std/console.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 30758,
+        "scope": 31007,
         "sourceUnit": 17417,
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "id": 30748,
+        "id": 30997,
         "nodeType": "ImportDirective",
-        "src": "121:50:33",
+        "src": "121:50:35",
         "nodes": [],
         "absolutePath": "src/interfaces/IDNft.sol",
         "file": "../src/interfaces/IDNft.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 30758,
-        "sourceUnit": 32406,
+        "scope": 31007,
+        "sourceUnit": 32765,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 30747,
+              "id": 30996,
               "name": "IDNft",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 32405,
-              "src": "129:5:33",
+              "referencedDeclaration": 32764,
+              "src": "129:5:35",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -345,24 +345,24 @@
         "unitAlias": ""
       },
       {
-        "id": 30750,
+        "id": 30999,
         "nodeType": "ImportDirective",
-        "src": "172:42:33",
+        "src": "172:42:35",
         "nodes": [],
         "absolutePath": "src/core/Dyad.sol",
         "file": "../src/core/Dyad.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 30758,
-        "sourceUnit": 31548,
+        "scope": 31007,
+        "sourceUnit": 31871,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 30749,
+              "id": 30998,
               "name": "Dyad",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 31547,
-              "src": "180:4:33",
+              "referencedDeclaration": 31870,
+              "src": "180:4:35",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -371,19 +371,19 @@
         "unitAlias": ""
       },
       {
-        "id": 30757,
+        "id": 31006,
         "nodeType": "ContractDefinition",
-        "src": "216:1338:33",
+        "src": "216:1338:35",
         "nodes": [
           {
-            "id": 30756,
+            "id": 31005,
             "nodeType": "FunctionDefinition",
-            "src": "244:1308:33",
+            "src": "244:1308:35",
             "nodes": [],
             "body": {
-              "id": 30755,
+              "id": 31004,
               "nodeType": "Block",
-              "src": "266:1286:33",
+              "src": "266:1286:35",
               "nodes": [],
               "statements": []
             },
@@ -392,20 +392,20 @@
             "kind": "function",
             "modifiers": [],
             "name": "run",
-            "nameLocation": "253:3:33",
+            "nameLocation": "253:3:35",
             "parameters": {
-              "id": 30753,
+              "id": 31002,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "256:2:33"
+              "src": "256:2:35"
             },
             "returnParameters": {
-              "id": 30754,
+              "id": 31003,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "266:0:33"
+              "src": "266:0:35"
             },
-            "scope": 30757,
+            "scope": 31006,
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
@@ -415,18 +415,18 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 30751,
+              "id": 31000,
               "name": "Script",
               "nameLocations": [
-                "233:6:33"
+                "233:6:35"
               ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 1892,
-              "src": "233:6:33"
+              "src": "233:6:35"
             },
-            "id": 30752,
+            "id": 31001,
             "nodeType": "InheritanceSpecifier",
-            "src": "233:6:33"
+            "src": "233:6:35"
           }
         ],
         "canonicalName": "Read",
@@ -434,7 +434,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "linearizedBaseContracts": [
-          30757,
+          31006,
           1892,
           1855,
           1840,
@@ -443,12 +443,12 @@
           3244
         ],
         "name": "Read",
-        "nameLocation": "225:4:33",
-        "scope": 30758,
+        "nameLocation": "225:4:35",
+        "scope": 31007,
         "usedErrors": []
       }
     ],
     "license": "MIT"
   },
-  "id": 33
+  "id": 35
 }

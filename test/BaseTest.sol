@@ -9,7 +9,7 @@ import {Dyad} from "../src/core/Dyad.sol";
 import {OracleMock} from "./OracleMock.sol";
 import {Parameters} from "../src/Parameters.sol";
 import {Vault} from "../src/core/Vault.sol";
-import {VaultFactory} from "../src/core/Factory.sol";
+import {VaultFactory} from "../src/core/VaultFactory.sol";
 
 contract BaseTest is Test, Parameters {
   using stdStorage for StdStorage;
