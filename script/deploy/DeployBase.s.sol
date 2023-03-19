@@ -18,13 +18,13 @@ contract DeployBase is Script, Parameters {
   )
     public 
     payable 
-    returns (address, address, address) {
+    returns (address, address, address, address) {
       vm.startBroadcast();
 
       DNft dNft       = new DNft();
       Factory factory = new Factory(address(dNft));
-      dNft.transferOwnership(address(_owner));
       dNft.setFactory(address(factory));
+      dNft.transferOwnership(address(_owner));
 
       (address vault, address dyad) = factory.deploy(
         _collateral,
@@ -33,6 +33,6 @@ contract DeployBase is Script, Parameters {
       );
 
       vm.stopBroadcast();
-      return (address(dNft), address(dyad), address(vault));
+      return (address(dNft), address(dyad), address(vault), address(factory));
   }
 }

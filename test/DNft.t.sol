@@ -8,9 +8,8 @@ import {SharesMath} from "../src/libraries/SharesMath.sol";
 
 contract DNftsTest is BaseTest {
   function test_Constructor() public {
-    console.log(2222);
-    // assertEq(dNft.owner(), MAINNET_OWNER);
-    // assertEq(dyad.owner(), address(dNft));
+    assertEq(dNft.owner(),   MAINNET_OWNER);
+    assertEq(dNft.factory(), address(factory));
   }
 
   // // -------------------- mintNft --------------------
