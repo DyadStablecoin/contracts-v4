@@ -25,8 +25,7 @@ contract Factory {
 
     Dyad dyad = new Dyad(
       string.concat("DYAD-", _flavor),
-      string.concat("d", _flavor),
-      msg.sender
+      string.concat("d", _flavor)
     );
     Vault vault = new Vault(
       address(dNft), 
@@ -35,8 +34,8 @@ contract Factory {
       msg.sender
     );
 
-    dNft.setLiquidator(address(vault)); 
     dyad.transferOwnership(address(vault));
+    dNft.setLiquidator(address(vault)); 
     deployed[_collateral][_oracle] = true;
     emit Deployed(address(vault), address(dyad));
     return (address(vault), address(dyad));

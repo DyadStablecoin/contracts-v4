@@ -4,15 +4,14 @@ pragma solidity =0.8.17;
 import "forge-std/console.sol";
 import {BaseTest} from "./BaseTest.sol";
 import {Parameters} from "../src/Parameters.sol";
-import {IDNft} from "../src/interfaces/IDNft.sol";
 import {SharesMath} from "../src/libraries/SharesMath.sol";
 
 contract DNftsTest is BaseTest {
-  // function test_Constructor() public {
-  //   assertEq(dNft.owner(), MAINNET_OWNER);
-  //   assertEq(dyad.owner(), address(dNft));
-  //   assertTrue(address(dNft.oracle()) != address(0));
-  // }
+  function test_Constructor() public {
+    console.log(2222);
+    // assertEq(dNft.owner(), MAINNET_OWNER);
+    // assertEq(dyad.owner(), address(dNft));
+  }
 
   // // -------------------- mintNft --------------------
   // function test_mintNft() public {
