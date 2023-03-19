@@ -28,6 +28,7 @@ contract BaseTest is Test, Parameters {
       address _dyad,
       address _vault
     ) = deployBase.deploy(
+      MAINNET_OWNER,
       MAINNET_WETH,
       MAINNET_ORACLE,
       "ETH"

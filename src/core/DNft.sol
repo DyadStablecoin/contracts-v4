@@ -13,10 +13,12 @@ contract DNft is ERC721Enumerable, Owned {
   event Revoke (uint indexed id, address indexed operator);
 
   error NotOwner             ();
+  error NotFactory           ();
   error PublicMintsExceeded  ();
   error InsiderMintsExceeded ();
   error IncorrectEthSacrifice();
   error NotLiquidator        ();
+  error AlreadySet           ();
 
   uint public constant INSIDER_MINTS = 300; 
   uint public constant PUBLIC_MINTS  = 1700; 
@@ -24,6 +26,8 @@ contract DNft is ERC721Enumerable, Owned {
 
   uint public insiderMints; // Number of insider mints
   uint public publicMints;  // Number of public mints
+
+  address public factory;
 
   struct Permission {
     bool    hasPermission; 
@@ -40,6 +44,14 @@ contract DNft is ERC721Enumerable, Owned {
 
   constructor() ERC721("Dyad NFT", "dNFT") 
                 Owned(msg.sender) {}
+
+  function setFactory(address _factory) 
+    external 
+      onlyOwner 
+    {
+      if (factory != address(0)) revert AlreadySet();
+      factory = _factory;
+  }
 
   function mintNft(address to)
     external 
@@ -99,8 +111,8 @@ contract DNft is ERC721Enumerable, Owned {
 
   function setLiquidator(address liquidator)
     external 
-      onlyOwner 
     {
+      if (msg.sender != factory) revert NotFactory();
       isLiquidator[liquidator] = true;
   }
 

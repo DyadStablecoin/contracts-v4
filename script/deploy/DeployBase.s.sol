@@ -11,6 +11,7 @@ import {Factory} from "../../src/core/Factory.sol";
 
 contract DeployBase is Script, Parameters {
   function deploy(
+    address _owner,
     address _collateral,
     address _oracle,
     string memory _flavor
@@ -20,9 +21,10 @@ contract DeployBase is Script, Parameters {
     returns (address, address, address) {
       vm.startBroadcast();
 
-      DNft dNft = new DNft();
+      DNft dNft       = new DNft();
       Factory factory = new Factory(address(dNft));
-      dNft.transferOwnership(address(factory));
+      dNft.transferOwnership(address(_owner));
+      dNft.setFactory(address(factory));
 
       (address vault, address dyad) = factory.deploy(
         _collateral,
