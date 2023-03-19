@@ -4,6 +4,7 @@ pragma solidity =0.8.17;
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {ERC721, ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import {SafeTransferLib} from "@solmate/src/utils/SafeTransferLib.sol";
 import {FixedPointMathLib} from "@solmate/src/utils/FixedPointMathLib.sol";
 import {Owned} from "@solmate/src/auth/Owned.sol";
@@ -13,7 +14,7 @@ import {IAggregatorV3} from "../interfaces/AggregatorV3Interface.sol";
 import {Dyad} from "./Dyad.sol";
 import {DNft} from "./DNft.sol";
 
-contract Vault {
+contract Vault is Initializable {
   using SafeTransferLib   for address;
   using SafeCast          for int;
   using FixedPointMathLib for uint;
@@ -53,12 +54,17 @@ contract Vault {
     if (!dNft.hasPermission(id, msg.sender)) revert MissingPermission() ; _;
   }
 
-  constructor(
+  constructor() { _disableInitializers(); }
+
+  function initialize(
       address _dNft, 
       address _dyad,
       address _collateral,
       address _oracle 
-  ) {
+  ) 
+    external 
+      initializer 
+  {
       dNft       = DNft(_dNft);
       dyad       = Dyad(_dyad);
       collateral = IERC20(_collateral);

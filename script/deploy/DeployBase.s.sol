@@ -7,7 +7,8 @@ import {DNft} from "../../src/core/DNft.sol";
 import {IDNft} from "../../src/interfaces/IDNft.sol";
 import {Parameters} from "../../src/Parameters.sol";
 import {DNft} from "../../src/core/DNft.sol";
-import {Factory} from "../../src/core/Factory.sol";
+import {VaultFactory} from "../../src/core/Factory.sol";
+import {Vault} from "../../src/core/Vault.sol";
 
 contract DeployBase is Script, Parameters {
   function deploy(
@@ -21,8 +22,9 @@ contract DeployBase is Script, Parameters {
     returns (address, address, address, address) {
       vm.startBroadcast();
 
-      DNft dNft       = new DNft();
-      Factory factory = new Factory(address(dNft));
+      Vault        vaultImpl = new Vault();
+      DNft         dNft      = new DNft();
+      VaultFactory factory   = new VaultFactory(address(dNft), address(vaultImpl));
       dNft.setFactory(address(factory));
       dNft.transferOwnership(address(_owner));
 

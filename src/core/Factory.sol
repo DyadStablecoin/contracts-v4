@@ -4,17 +4,27 @@ pragma solidity =0.8.17;
 import {Vault} from "./Vault.sol";
 import {Dyad} from "./Dyad.sol";
 import {DNft} from "./DNft.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
-contract Factory {
+contract VaultFactory {
+  using Clones for address;
 
   event Deployed(address dNft, address dyad);
+
+  address public immutable implementation;
 
   // token => oracle => deployed
   mapping(address => mapping(address => bool)) public deployed;
 
   DNft public dNft;
 
-  constructor(address _dNft) { dNft = DNft(_dNft); }
+  constructor(
+    address _dNft,
+    address _implementation
+  ) { 
+    dNft           = DNft(_dNft); 
+    implementation = _implementation;
+  }
 
   function deploy(
       address _collateral, 
@@ -30,11 +40,13 @@ contract Factory {
         string.concat(_flavor, "DYAD-"),
         string.concat("d", _flavor)
       );
-      Vault vault = new Vault(
+      address vault = implementation.clone();
+
+      Vault(vault).initialize(
         address(dNft), 
         address(dyad),
         _collateral,
-        msg.sender
+        _oracle
       );
 
       dyad.transferOwnership(address(vault));

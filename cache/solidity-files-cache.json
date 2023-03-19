@@ -668,6 +668,88 @@
         }
       }
     },
+    "lib/openzeppelin-contracts/contracts/proxy/Clones.sol": {
+      "lastModificationDate": 1675380357671,
+      "contentHash": "11535a839f5494023c396098504f5646",
+      "sourceName": "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "Clones": {
+          "0.8.17+commit.8df45f5f.Darwin.appleclang": "Clones.sol/Clones.json"
+        }
+      }
+    },
+    "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol": {
+      "lastModificationDate": 1675380357671,
+      "contentHash": "a8db4cae435200b0e429619c853df716",
+      "sourceName": "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol"
+      ],
+      "versionRequirement": "^0.8.2",
+      "artifacts": {
+        "Initializable": {
+          "0.8.17+commit.8df45f5f.Darwin.appleclang": "Initializable.sol/Initializable.json"
+        }
+      }
+    },
     "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": {
       "lastModificationDate": 1675380357655,
       "contentHash": "ad7c2d0af148c8f9f097d65deeb4da6b",
@@ -1524,6 +1606,8 @@
         "lib/forge-std/src/Vm.sol",
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
@@ -1602,6 +1686,8 @@
         "lib/forge-std/src/Vm.sol",
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
@@ -1637,8 +1723,8 @@
       }
     },
     "script/deploy/DeployBase.s.sol": {
-      "lastModificationDate": 1679210799916,
-      "contentHash": "6233ddaafb52e0d31dfc1f7803fa5c06",
+      "lastModificationDate": 1679216720211,
+      "contentHash": "7720f69f74cf448017bb627ff1420304",
       "sourceName": "script/deploy/DeployBase.s.sol",
       "solcConfig": {
         "settings": {
@@ -1680,6 +1766,8 @@
         "lib/forge-std/src/Vm.sol",
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
@@ -1998,8 +2086,8 @@
       }
     },
     "src/core/Factory.sol": {
-      "lastModificationDate": 1679209856868,
-      "contentHash": "044a4263bcbef53d4f68fdd59857788a",
+      "lastModificationDate": 1679216456119,
+      "contentHash": "59cf071c08a9e762d59c6ec4091e1303",
       "sourceName": "src/core/Factory.sol",
       "solcConfig": {
         "settings": {
@@ -2030,6 +2118,8 @@
         }
       },
       "imports": [
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
@@ -2056,14 +2146,14 @@
       ],
       "versionRequirement": "=0.8.17",
       "artifacts": {
-        "Factory": {
-          "0.8.17+commit.8df45f5f.Darwin.appleclang": "Factory.sol/Factory.json"
+        "VaultFactory": {
+          "0.8.17+commit.8df45f5f.Darwin.appleclang": "Factory.sol/VaultFactory.json"
         }
       }
     },
     "src/core/Vault.sol": {
-      "lastModificationDate": 1679209188277,
-      "contentHash": "3aba2a016c3a3759f0959d42009dfa5b",
+      "lastModificationDate": 1679216689867,
+      "contentHash": "eed1faf37b1c3447c8009f757def4683",
       "sourceName": "src/core/Vault.sol",
       "solcConfig": {
         "settings": {
@@ -2094,6 +2184,7 @@
         }
       },
       "imports": [
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
@@ -2327,8 +2418,8 @@
       }
     },
     "test/BaseTest.sol": {
-      "lastModificationDate": 1679210750022,
-      "contentHash": "a58c09b2c302852ddb2b0417aba77e8a",
+      "lastModificationDate": 1679216232502,
+      "contentHash": "c7573d7731732039c54e74bd04e13a63",
       "sourceName": "test/BaseTest.sol",
       "solcConfig": {
         "settings": {
@@ -2374,6 +2465,8 @@
         "lib/forge-std/src/Vm.sol",
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
@@ -2410,7 +2503,7 @@
       }
     },
     "test/DNft.t.sol": {
-      "lastModificationDate": 1679210808721,
+      "lastModificationDate": 1679210835248,
       "contentHash": "b41e76eeacf58f3bfb0cf459ec93fee8",
       "sourceName": "test/DNft.t.sol",
       "solcConfig": {
@@ -2457,6 +2550,8 @@
         "lib/forge-std/src/Vm.sol",
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
@@ -2582,6 +2677,8 @@
         "lib/forge-std/src/Vm.sol",
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/Clones.sol",
+        "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",

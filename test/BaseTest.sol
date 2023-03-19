@@ -9,7 +9,7 @@ import {Dyad} from "../src/core/Dyad.sol";
 import {OracleMock} from "./OracleMock.sol";
 import {Parameters} from "../src/Parameters.sol";
 import {Vault} from "../src/core/Vault.sol";
-import {Factory} from "../src/core/Factory.sol";
+import {VaultFactory} from "../src/core/Factory.sol";
 
 contract BaseTest is Test, Parameters {
   using stdStorage for StdStorage;
@@ -17,7 +17,7 @@ contract BaseTest is Test, Parameters {
   DNft    dNft;
   Dyad    dyad;
   Vault   vault;
-  Factory factory;
+  VaultFactory factory;
   OracleMock oracleMock;
 
   receive() external payable {}
@@ -39,7 +39,7 @@ contract BaseTest is Test, Parameters {
     dNft    = DNft(_dNft);
     dyad    = Dyad(_dyad);
     vault   = Vault(_vault);
-    factory = Factory(_factory);
+    factory = VaultFactory(_factory);
     vm.warp(block.timestamp + 1 days);
   }
 
