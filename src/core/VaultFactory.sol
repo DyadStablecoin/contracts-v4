@@ -11,6 +11,8 @@ contract VaultFactory {
 
   event Deployed(address dNft, address dyad);
 
+  error AlreadyDeployed();
+
   address public immutable vaultImpl;
   address public immutable dyadImpl;
 
@@ -38,7 +40,7 @@ contract VaultFactory {
       address,
       address
     ) {
-      require(!deployed[_collateral][_oracle]);
+      if (deployed[_collateral][_oracle]) revert AlreadyDeployed();
 
       Dyad dyad = Dyad(dyadImpl.clone());
 

@@ -14,11 +14,11 @@ import {VaultFactory} from "../src/core/VaultFactory.sol";
 contract BaseTest is Test, Parameters {
   using stdStorage for StdStorage;
 
-  DNft    dNft;
-  Dyad    dyad;
-  Vault   vault;
+  DNft         dNft;
+  Dyad         dyad;
+  Vault        vault;
   VaultFactory factory;
-  OracleMock oracleMock;
+  OracleMock   oracleMock;
 
   receive() external payable {}
 

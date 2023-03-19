@@ -7,7 +7,7 @@ import {Parameters} from "../src/Parameters.sol";
 import {SharesMath} from "../src/libraries/SharesMath.sol";
 
 contract DNftsTest is BaseTest {
-  function test_Constructor() public {
+  function test_constructor() public {
     assertEq(dNft.owner(),   MAINNET_OWNER);
     assertEq(dNft.factory(), address(factory));
   }
