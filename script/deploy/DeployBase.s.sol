@@ -12,10 +12,10 @@ import {Vault} from "../../src/core/Vault.sol";
 
 contract DeployBase is Script, Parameters {
   function deploy(
-    address _owner,
-    address _collateral,
-    address _oracle,
-    string memory _flavor
+      address _owner,
+      address _collateral,
+      address _oracle,
+      string memory _flavor
   )
     public 
     payable 

@@ -11,7 +11,7 @@ contract VaultFactory {
 
   event Deployed(address dNft, address dyad);
 
-  address public immutable implementation;
+  address public immutable vaultImpl;
 
   // token => oracle => deployed
   mapping(address => mapping(address => bool)) public deployed;
@@ -20,10 +20,10 @@ contract VaultFactory {
 
   constructor(
     address _dNft,
-    address _implementation
+    address _vaultImpl
   ) { 
     dNft           = DNft(_dNft); 
-    implementation = _implementation;
+    vaultImpl = _vaultImpl;
   }
 
   function deploy(
@@ -40,7 +40,8 @@ contract VaultFactory {
         string.concat(_flavor, "DYAD-"),
         string.concat("d", _flavor)
       );
-      address vault = implementation.clone();
+
+      address vault = vaultImpl.clone();
 
       Vault(vault).initialize(
         address(dNft), 
