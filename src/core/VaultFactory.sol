@@ -14,8 +14,8 @@ contract VaultFactory {
 
   error InvalidCollateral();
   error InvalidOracle();
-  error InvalidCollateralSymbol();
   error AlreadyDeployed();
+  error InvalidCollateralSymbol();
 
   address public immutable vaultImpl;
   address public immutable dyadImpl;
@@ -43,14 +43,15 @@ contract VaultFactory {
       address,
       address
     ) {
-      if (_collateral == address(0))            revert InvalidCollateral();
-      if (_oracle     == address(0))            revert InvalidOracle();
-      if (deployed[_collateral][_oracle])       revert AlreadyDeployed();
+      if (_collateral == address(0))      revert InvalidCollateral();
+      if (_oracle     == address(0))      revert InvalidOracle();
+      if (deployed[_collateral][_oracle]) revert AlreadyDeployed();
 
       Dyad dyad = Dyad(dyadImpl.clone());
 
       // `symbol` is not officially part of the ERC20 standard!
       string memory collateralSymbol = ERC20(_collateral).symbol(); 
+      if (bytes(collateralSymbol).length == 0) revert InvalidCollateralSymbol();
 
       dyad.initialize(
         string.concat(collateralSymbol, "DYAD-"),
