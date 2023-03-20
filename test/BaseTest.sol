@@ -33,8 +33,7 @@ contract BaseTest is Test, Parameters {
     ) = deployBase.deploy(
       MAINNET_OWNER,
       MAINNET_WETH,
-      MAINNET_ORACLE,
-      "ETH"
+      MAINNET_ORACLE
     );
     dNft    = DNft(_dNft);
     dyad    = Dyad(_dyad);

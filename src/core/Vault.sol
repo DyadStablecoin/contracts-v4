@@ -141,7 +141,7 @@ contract Vault is Initializable {
       return (id2collateral[id] * _getEthPrice()/1e8).divWadDown(_dyad);
   }
 
-  // ETH price in USD
+  // collateral price in USD
   function _getEthPrice() 
     private 
     view 

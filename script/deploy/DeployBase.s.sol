@@ -14,8 +14,7 @@ contract DeployBase is Script, Parameters {
   function deploy(
       address _owner,
       address _collateral,
-      address _oracle,
-      string memory _flavor
+      address _oracle
   )
     public 
     payable 
@@ -35,8 +34,7 @@ contract DeployBase is Script, Parameters {
 
       (address vault, address dyad) = factory.deploy(
         _collateral,
-        _oracle,
-        _flavor
+        _oracle
       );
 
       vm.stopBroadcast();

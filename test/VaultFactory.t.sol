@@ -9,6 +9,6 @@ contract VaultFactoryTest is BaseTest {
   }
   function test_fail_deploySameVaultAgain() public {
     vm.expectRevert();
-    factory.deploy(MAINNET_WETH, MAINNET_ORACLE, "ETH");
+    factory.deploy(MAINNET_WETH, MAINNET_ORACLE);
   }
 }

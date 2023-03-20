@@ -5,12 +5,16 @@ import {Vault} from "./Vault.sol";
 import {Dyad} from "./Dyad.sol";
 import {DNft} from "./DNft.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract VaultFactory {
   using Clones for address;
 
   event Deployed(address dNft, address dyad);
 
+  error InvalidCollateral();
+  error InvalidOracle();
+  error InvalidCollateralSymbol();
   error AlreadyDeployed();
 
   address public immutable vaultImpl;
@@ -33,20 +37,24 @@ contract VaultFactory {
 
   function deploy(
       address _collateral, 
-      address _oracle,
-      string memory _collateralSymbol 
+      address _oracle
   ) public 
     returns (
       address,
       address
     ) {
-      if (deployed[_collateral][_oracle]) revert AlreadyDeployed();
+      if (_collateral == address(0))            revert InvalidCollateral();
+      if (_oracle     == address(0))            revert InvalidOracle();
+      if (deployed[_collateral][_oracle])       revert AlreadyDeployed();
 
       Dyad dyad = Dyad(dyadImpl.clone());
 
+      // `symbol` is not officially part of the ERC20 standard!
+      string memory collateralSymbol = ERC20(_collateral).symbol(); 
+
       dyad.initialize(
-        string.concat(_collateralSymbol, "DYAD-"),
-        string.concat("d", _collateralSymbol)
+        string.concat(collateralSymbol, "DYAD-"),
+        string.concat("d", collateralSymbol)
       );
 
       Vault vault = Vault(vaultImpl.clone());
