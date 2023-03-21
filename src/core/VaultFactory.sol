@@ -16,8 +16,8 @@ contract VaultFactory is IVaultFactory {
   address public immutable vaultImpl;
   address public immutable dyadImpl;
 
-  // collateral => oracle => deployed
-  mapping(address => mapping(address => bool)) public vaults;
+  // collateral => oracle => vault
+  mapping(address => mapping(address => address)) public vaults;
 
   constructor(
     address _dNft,
@@ -38,10 +38,10 @@ contract VaultFactory is IVaultFactory {
       address,
       address
     ) {
-      if (collateral == address(0))   revert InvalidCollateral();
-      if (oracle     == address(0))   revert InvalidOracle();
-      if (collateral == oracle)       revert CollateralEqualsOracle();
-      if (vaults[collateral][oracle]) revert AlreadyDeployed();
+      if (collateral == address(0)) revert InvalidCollateral();
+      if (oracle     == address(0)) revert InvalidOracle();
+      if (collateral == oracle)     revert CollateralEqualsOracle();
+      if (vaults[collateral][oracle] != address(0)) revert AlreadyDeployed();
 
       // `symbol` is not officially part of the ERC20 standard!
       string memory collateralSymbol = ERC20(collateral).symbol(); 
@@ -63,7 +63,7 @@ contract VaultFactory is IVaultFactory {
 
       dNft.addLiquidator(address(vault)); 
       dyad.setOwner     (address(vault));
-      vaults[collateral][oracle] = true;
+      vaults[collateral][oracle] = address(vault);
       emit Deploy(address(vault), address(dyad));
       return (address(vault), address(dyad));
   }

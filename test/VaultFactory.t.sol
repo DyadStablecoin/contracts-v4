@@ -5,7 +5,7 @@ import {BaseTest} from "./BaseTest.sol";
 
 contract VaultFactoryTest is BaseTest {
   function test_correctDeployment() public {
-    assertTrue(factory.vaults(MAINNET_WETH, MAINNET_ORACLE));
+    assertTrue(factory.vaults(MAINNET_WETH, MAINNET_ORACLE) != address(0));
   }
   function test_fail_deploySameVaultAgain() public {
     vm.expectRevert();
