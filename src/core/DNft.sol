@@ -13,9 +13,8 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
   uint public constant PUBLIC_MINTS  = 1700; 
   uint public constant ETH_SACRIFICE = 0.1 ether; 
 
-  uint public insiderMints; // Number of insider mints
-  uint public publicMints;  // Number of public mints
-
+  uint    public insiderMints; // Number of insider mints
+  uint    public publicMints;  // Number of public mints
   address public factory;
 
   struct Permission {
