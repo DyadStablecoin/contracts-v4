@@ -62,20 +62,19 @@ contract Vault is Initializable, IVault {
   function deposit(uint id, uint amount) 
     public 
       isValidNft(id) 
-  {
-    uint balancePre = collat.balanceOf(address(this));
-    collat.safeTransferFrom(msg.sender, address(this), amount);
-    uint actualAmount = collat.balanceOf(address(this)) - balancePre;
-    id2collat[id] += actualAmount;
-    emit Deposit(id, actualAmount);
+    {
+      uint balancePre = collat.balanceOf(address(this));
+      collat.safeTransferFrom(msg.sender, address(this), amount);
+      uint actualAmount = collat.balanceOf(address(this)) - balancePre;
+      id2collat[id] += actualAmount;
+      emit Deposit(id, actualAmount);
   }
 
   /// @inheritdoc IVault
   function withdraw(uint from, address to, uint amount) 
     public 
       isNftOwnerOrHasPermission(from) 
-    returns (uint)
-    {
+    returns (uint) {
       id2collat[from] -= amount;
       if (_collatRatio(from) < MIN_COLLATERIZATION_RATIO) revert CrTooLow(); 
       uint balancePre = collat.balanceOf(to);
@@ -98,11 +97,10 @@ contract Vault is Initializable, IVault {
 
   /// @inheritdoc IVault
   function burnDyad(uint id, uint amount) 
-    external 
-  {
-    dyad.burn(msg.sender, amount);
-    id2dyad[id] -= amount;
-    emit BurnDyad(id, amount);
+    external {
+      dyad.burn(msg.sender, amount);
+      id2dyad[id] -= amount;
+      emit BurnDyad(id, amount);
   }
 
   /// @inheritdoc IVault
