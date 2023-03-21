@@ -28,7 +28,7 @@ contract Vault is Initializable, IVault {
 
   DNft          public dNft;
   Dyad          public dyad;
-  IERC20        public collateral;
+  IERC20        public collat;
   IAggregatorV3 public oracle;
 
   modifier isValidNft(uint id) {
@@ -46,7 +46,7 @@ contract Vault is Initializable, IVault {
   function initialize(
       address _dNft, 
       address _dyad,
-      address _collateral,
+      address _collat,
       address _oracle 
   ) 
     external 
@@ -54,7 +54,7 @@ contract Vault is Initializable, IVault {
   {
       dNft       = DNft(_dNft);
       dyad       = Dyad(_dyad);
-      collateral = IERC20(_collateral);
+      collat = IERC20(_collat);
       oracle     = IAggregatorV3(_oracle);
   }
 
@@ -63,9 +63,9 @@ contract Vault is Initializable, IVault {
     public 
       isValidNft(id) 
   {
-    uint balancePre = collateral.balanceOf(address(this));
-    collateral.safeTransferFrom(msg.sender, address(this), amount);
-    uint actualAmount = collateral.balanceOf(address(this)) - balancePre;
+    uint balancePre = collat.balanceOf(address(this));
+    collat.safeTransferFrom(msg.sender, address(this), amount);
+    uint actualAmount = collat.balanceOf(address(this)) - balancePre;
     id2collat[id] += actualAmount;
     emit Deposit(id, actualAmount);
   }
@@ -78,9 +78,9 @@ contract Vault is Initializable, IVault {
     {
       id2collat[from] -= amount;
       if (_collatRatio(from) < MIN_COLLATERIZATION_RATIO) revert CrTooLow(); 
-      uint balancePre = collateral.balanceOf(to);
-      collateral.safeTransfer(to, amount);
-      uint actualAmount = collateral.balanceOf(to) - balancePre;
+      uint balancePre = collat.balanceOf(to);
+      collat.safeTransfer(to, amount);
+      uint actualAmount = collat.balanceOf(to) - balancePre;
       emit Withdraw(from, to, actualAmount);
       return actualAmount;
   }
@@ -122,8 +122,8 @@ contract Vault is Initializable, IVault {
     returns (uint) { 
       dyad.burn(msg.sender, amount);
       id2dyad[from]    -= amount;
-      uint collat       = amount * (10**oracle.decimals()) / _getEthPrice();
-      uint actualAmount = withdraw(from, to, collat);
+      uint _collat      = amount * (10**oracle.decimals()) / _getEthPrice();
+      uint actualAmount = withdraw(from, to, _collat);
       emit Redeem(from, amount, to, actualAmount);
       return actualAmount;
   }
