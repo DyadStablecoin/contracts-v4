@@ -48,8 +48,9 @@ interface IVault {
    * @param from Id of the dNFT to withdraw from
    * @param to Address to send the collateral to
    * @param amount Amount of collateral to withdraw
+   * @return Amount of collateral withdrawn
    */
-  function withdraw(uint from, address to, uint amount) external;
+  function withdraw(uint from, address to, uint amount) external returns (uint);
 
   /**
    * @notice Mint `amount` of DYAD as an ERC-20 token from dNFT
