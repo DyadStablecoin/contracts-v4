@@ -1,29 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.17;
 
-import {Vault} from "./Vault.sol";
-import {Dyad} from "./Dyad.sol";
-import {DNft} from "./DNft.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract VaultFactory {
+import {Vault} from "./Vault.sol";
+import {Dyad} from "./Dyad.sol";
+import {DNft} from "./DNft.sol";
+import {IVaultFactory} from "../interfaces/IVaultFactory.sol";
+
+contract VaultFactory is IVaultFactory {
   using Clones for address;
 
-  event Deployed(address dNft, address dyad);
-
-  error InvalidCollateral();
-  error InvalidOracle();
-  error AlreadyDeployed();
-  error InvalidCollateralSymbol();
-
+  DNft    public immutable dNft;
   address public immutable vaultImpl;
   address public immutable dyadImpl;
 
   // collateral => oracle => deployed
   mapping(address => mapping(address => bool)) public deployed;
-
-  DNft public dNft;
 
   constructor(
     address _dNft,
@@ -35,23 +29,24 @@ contract VaultFactory {
     dyadImpl  = _dyadImpl;
   }
 
+  /// @inheritdoc IVaultFactory
   function deploy(
-      address _collateral, 
-      address _oracle
-  ) public 
+      address collateral, 
+      address oracle
+  ) external 
     returns (
       address,
       address
     ) {
-      if (_collateral == address(0))      revert InvalidCollateral();
-      if (_oracle     == address(0))      revert InvalidOracle();
-      if (deployed[_collateral][_oracle]) revert AlreadyDeployed();
-
-      Dyad dyad = Dyad(dyadImpl.clone());
+      if (collateral == address(0))     revert InvalidCollateral();
+      if (oracle     == address(0))     revert InvalidOracle();
+      if (deployed[collateral][oracle]) revert AlreadyDeployed();
 
       // `symbol` is not officially part of the ERC20 standard!
-      string memory collateralSymbol = ERC20(_collateral).symbol(); 
+      string memory collateralSymbol = ERC20(collateral).symbol(); 
       if (bytes(collateralSymbol).length == 0) revert InvalidCollateralSymbol();
+
+      Dyad dyad = Dyad(dyadImpl.clone());
 
       dyad.initialize(
         string.concat(collateralSymbol, "DYAD-"),
@@ -63,14 +58,14 @@ contract VaultFactory {
       vault.initialize(
         address(dNft), 
         address(dyad),
-        _collateral,
-        _oracle
+        collateral,
+        oracle
       );
 
-      dNft.setLiquidator(address(vault)); 
+      dNft.addLiquidator(address(vault)); 
       dyad.setOwner(address(vault));
-      deployed[_collateral][_oracle] = true;
-      emit Deployed(address(vault), address(dyad));
+      deployed[collateral][oracle] = true;
+      emit Deploy(address(vault), address(dyad));
       return (address(vault), address(dyad));
   }
 }

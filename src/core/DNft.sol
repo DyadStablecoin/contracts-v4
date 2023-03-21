@@ -109,7 +109,7 @@ contract DNft is ERC721Enumerable, Owned {
       );
   }
 
-  function setLiquidator(address liquidator)
+  function addLiquidator(address liquidator)
     external 
     {
       if (msg.sender != factory) revert NotFactory();

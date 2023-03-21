@@ -28,7 +28,7 @@ contract Vault is Initializable {
   error MissingPermission    ();
 
   event Deposit  (uint indexed id, uint amount);
-  event Redeem   (uint indexed from, uint amount, address indexed to, uint eth);
+  event Redeem   (uint indexed from, uint amount, address indexed to, uint collat);
   event Liquidate(uint indexed id, address indexed to);
   event Withdraw (uint indexed from, address indexed to, uint amount);
   event MintDyad (uint indexed from, address indexed to, uint amount);
@@ -36,8 +36,8 @@ contract Vault is Initializable {
 
   uint public constant MIN_COLLATERIZATION_RATIO = 3e18; // 300%
 
-  mapping(uint => uint) public id2collateral;
-  mapping(uint => uint) public id2dyad;
+  mapping(uint => uint) public id2collat; // nft id => collateral
+  mapping(uint => uint) public id2dyad;   // nft id => dyad 
 
   DNft          public dNft;
   Dyad          public dyad;
@@ -76,7 +76,7 @@ contract Vault is Initializable {
       isValidNft(id) 
   {
     collateral.transferFrom(msg.sender, address(this), amount);
-    id2collateral[id] += amount;
+    id2collat[id] += amount;
     emit Deposit(id, amount);
   }
 
@@ -84,7 +84,7 @@ contract Vault is Initializable {
     external 
       isNftOwnerOrHasPermission(from) 
     {
-      id2collateral[from] -= amount;
+      id2collat[from] -= amount;
       if (_collatRatio(from) < MIN_COLLATERIZATION_RATIO) revert CrTooLow(); 
       collateral.transfer(to, amount);
       emit Withdraw(from, to, amount);
@@ -111,7 +111,7 @@ contract Vault is Initializable {
   function liquidate(uint id, address to, uint amount) 
     external {
       if (_collatRatio(id) >= MIN_COLLATERIZATION_RATIO) revert CrTooHigh(); 
-      id2collateral[id] += amount;
+      id2collat[id] += amount;
       if (_collatRatio(id) <  MIN_COLLATERIZATION_RATIO) revert CrTooLow(); 
       dNft.liquidate(id, to);
       emit Liquidate(id, to);
@@ -123,11 +123,11 @@ contract Vault is Initializable {
     returns (uint) { 
       dyad.burn(msg.sender, amount);
       id2dyad[from] -= amount;
-      uint eth       = amount*1e8 / _getEthPrice();
-      id2collateral[from]  -= eth;
+      uint collat    = amount * (10**oracle.decimals()) / _getEthPrice();
+      id2collat[from]  -= collat;
       collateral.transfer(to, amount);
-      emit Redeem(from, amount, to, eth);
-      return eth;
+      emit Redeem(from, amount, to, collat);
+      return collat;
   }
 
   // Get Collateralization Ratio of the dNFT
@@ -138,7 +138,7 @@ contract Vault is Initializable {
       uint _dyad = id2dyad[id]; // save gas
       if (_dyad == 0) return type(uint).max;
       // cr = deposit / withdrawn
-      return (id2collateral[id] * _getEthPrice()/1e8).divWadDown(_dyad);
+      return (id2collat[id] * _getEthPrice() / (10**oracle.decimals())).divWadDown(_dyad);
   }
 
   // collateral price in USD
@@ -153,7 +153,7 @@ contract Vault is Initializable {
         uint256 timeStamp, 
         uint80 answeredInRound
       ) = oracle.latestRoundData();
-      if (timeStamp == 0) revert IncompleteRound();
+      if (timeStamp == 0)            revert IncompleteRound();
       if (answeredInRound < roundID) revert StaleData();
       return price.toUint256();
   }
