@@ -101,6 +101,7 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
     {
       if (factory != address(0)) revert AlreadySet();
       factory = _factory;
+      emit SetFactory(_factory);
   }
 
   /// @inheritdoc IDNft
@@ -109,6 +110,7 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
     {
       if (msg.sender != factory) revert NotFactory();
       isLiquidator[liquidator] = true;
+      emit AddLiquidator(liquidator);
   }
 
   /// @inheritdoc IDNft

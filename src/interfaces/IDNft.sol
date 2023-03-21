@@ -2,9 +2,11 @@
 pragma solidity = 0.8.17;
 
 interface IDNft {
-  event MintNft(uint indexed id, address indexed to);
-  event Grant  (uint indexed id, address indexed operator);
-  event Revoke (uint indexed id, address indexed operator);
+  event MintNft      (uint indexed id, address indexed to);
+  event Grant        (uint indexed id, address indexed operator);
+  event Revoke       (uint indexed id, address indexed operator);
+  event SetFactory   (address indexed factory);
+  event AddLiquidator(address indexed liquidator);
 
   error NotOwner             ();
   error NotFactory           ();
