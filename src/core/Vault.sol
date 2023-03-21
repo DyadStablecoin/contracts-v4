@@ -6,9 +6,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {ERC721, ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {SafeTransferLib} from "@solmate/src/utils/SafeTransferLib.sol";
 import {FixedPointMathLib} from "@solmate/src/utils/FixedPointMathLib.sol";
-import {Owned} from "@solmate/src/auth/Owned.sol";
 
 import {IVault} from "../interfaces/IVault.sol";
 import {IAggregatorV3} from "../interfaces/AggregatorV3Interface.sol";
@@ -17,7 +15,6 @@ import {DNft} from "./DNft.sol";
 
 contract Vault is Initializable, IVault {
   using SafeERC20         for IERC20;
-  using SafeTransferLib   for address;
   using SafeCast          for int;
   using FixedPointMathLib for uint;
 
@@ -120,25 +117,25 @@ contract Vault is Initializable, IVault {
     returns (uint) { 
       dyad.burn(msg.sender, amount);
       id2dyad[from]    -= amount;
-      uint _collat      = amount * (10**oracle.decimals()) / _getEthPrice();
+      uint _collat      = amount * (10**oracle.decimals()) / _collatPrice();
       uint actualAmount = withdraw(from, to, _collat);
       emit Redeem(from, amount, to, actualAmount);
       return actualAmount;
   }
 
-  // Get Collateralization Ratio of the dNFT
+  // collateralization ratio of the dNFT
   function _collatRatio(uint id) 
     private 
     view 
     returns (uint) {
       uint _dyad = id2dyad[id]; // save gas
       if (_dyad == 0) return type(uint).max;
-      // cr = deposit / withdrawn
-      return (id2collat[id] * _getEthPrice() / (10**oracle.decimals())).divWadDown(_dyad);
+      uint _collat = id2collat[id] * _collatPrice() / (10**oracle.decimals());
+      return _collat.divWadDown(_dyad);
   }
 
   // collateral price in USD
-  function _getEthPrice() 
+  function _collatPrice() 
     private 
     view 
     returns (uint) {
