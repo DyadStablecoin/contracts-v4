@@ -79,8 +79,9 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
       emit Revoke(id, operator);
   }
 
+  /// @inheritdoc IDNft
   function hasPermission(uint id, address operator) 
-    public 
+    external 
     view 
     returns (bool) {
       return (

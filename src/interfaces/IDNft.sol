@@ -39,4 +39,12 @@ interface IDNft {
    * @param operator Operator to revoke permissions from
    */
   function revoke(uint id, address operator) external;
+
+  /**
+   * @notice Check if an `operator` has permission for DNft with `id`
+   * @param id       Id of the dNFT's permissions to check
+   * @param operator Operator to check permissions for
+   * @return True if `operator` has permission to act on behalf of `id`
+   */
+  function hasPermission(uint id, address operator) external view returns (bool);
 }
