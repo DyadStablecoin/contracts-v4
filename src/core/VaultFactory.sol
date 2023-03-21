@@ -45,7 +45,7 @@ contract VaultFactory is IVaultFactory {
 
       // `symbol` is not officially part of the ERC20 standard!
       string memory collateralSymbol = ERC20(collateral).symbol(); 
-      if (bytes(collateralSymbol).length == 0) revert InvalidCollateralSymbol();
+      if (bytes(collateralSymbol).length == 0) revert InvalidCollateral();
 
       Dyad dyad = Dyad(dyadImpl.clone());
       dyad.initialize(

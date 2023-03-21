@@ -8,7 +8,6 @@ interface IVaultFactory {
   error InvalidOracle();
   error CollateralEqualsOracle();
   error AlreadyDeployed();
-  error InvalidCollateralSymbol();
 
   /**
    * @notice Deploy a new Vault and its corresponding DYAD type
