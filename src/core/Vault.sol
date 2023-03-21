@@ -103,7 +103,7 @@ contract Vault is Initializable, IVault {
       if (_collatRatio(id) >= MIN_COLLATERIZATION_RATIO) revert CrTooHigh(); 
       id2collat[id] += amount;
       if (_collatRatio(id) <  MIN_COLLATERIZATION_RATIO) revert CrTooLow(); 
-      dNft.liquidate(id, to);
+      dNft.transfer(id, to);
       emit Liquidate(id, to);
   }
 

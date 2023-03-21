@@ -34,6 +34,7 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
   constructor() ERC721("Dyad NFT", "dNFT") 
                 Owned(msg.sender) {}
 
+  /// @inheritdoc IDNft
   function mintNft(address to)
     external 
     payable
@@ -44,6 +45,7 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
       return _mintNft(to);
   }
 
+  /// @inheritdoc IDNft
   function mintInsiderNft(address to)
     external 
       onlyOwner 
@@ -93,6 +95,7 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
       );
   }
 
+  /// @inheritdoc IDNft
   function setFactory(address _factory) 
     external 
       onlyOwner 
@@ -101,6 +104,7 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
       factory = _factory;
   }
 
+  /// @inheritdoc IDNft
   function addLiquidator(address liquidator)
     external 
     {
@@ -108,10 +112,11 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
       isLiquidator[liquidator] = true;
   }
 
-  function liquidate(
+  /// @inheritdoc IDNft
+  function transfer(
       uint id, 
       address to 
-  ) public {
+  ) external {
       if (!isLiquidator[msg.sender]) revert NotLiquidator();
       _transfer(ownerOf(id), to, id);
   }
