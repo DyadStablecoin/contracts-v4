@@ -46,16 +46,16 @@ contract Vault is Initializable, IVault {
   function initialize(
       address _dNft, 
       address _dyad,
-      address _collat,
+      address _collat, // collateral
       address _oracle 
   ) 
     external 
       initializer 
   {
-      dNft       = DNft(_dNft);
-      dyad       = Dyad(_dyad);
-      collat = IERC20(_collat);
-      oracle     = IAggregatorV3(_oracle);
+      dNft   = DNft(_dNft);
+      dyad   = Dyad(_dyad);
+      collat = IERC20(_collat); 
+      oracle = IAggregatorV3(_oracle);
   }
 
   /// @inheritdoc IVault
