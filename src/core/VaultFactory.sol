@@ -40,6 +40,7 @@ contract VaultFactory is IVaultFactory {
     ) {
       if (collateral == address(0))     revert InvalidCollateral();
       if (oracle     == address(0))     revert InvalidOracle();
+      if (collateral == oracle)         revert CollateralEqualsOracle();
       if (deployed[collateral][oracle]) revert AlreadyDeployed();
 
       // `symbol` is not officially part of the ERC20 standard!
@@ -63,7 +64,7 @@ contract VaultFactory is IVaultFactory {
       );
 
       dNft.addLiquidator(address(vault)); 
-      dyad.setOwner(address(vault));
+      dyad.setOwner     (address(vault));
       deployed[collateral][oracle] = true;
       emit Deploy(address(vault), address(dyad));
       return (address(vault), address(dyad));

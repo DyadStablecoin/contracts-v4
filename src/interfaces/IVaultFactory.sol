@@ -6,6 +6,7 @@ interface IVaultFactory {
 
   error InvalidCollateral();
   error InvalidOracle();
+  error CollateralEqualsOracle();
   error AlreadyDeployed();
   error InvalidCollateralSymbol();
 
