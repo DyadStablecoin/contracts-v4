@@ -9,30 +9,15 @@ import {SafeTransferLib} from "@solmate/src/utils/SafeTransferLib.sol";
 import {FixedPointMathLib} from "@solmate/src/utils/FixedPointMathLib.sol";
 import {Owned} from "@solmate/src/auth/Owned.sol";
 
-import {IDNft} from "../interfaces/IDNft.sol";
+import {IVault} from "../interfaces/IVault.sol";
 import {IAggregatorV3} from "../interfaces/AggregatorV3Interface.sol";
 import {Dyad} from "./Dyad.sol";
 import {DNft} from "./DNft.sol";
 
-contract Vault is Initializable {
+contract Vault is Initializable, IVault {
   using SafeTransferLib   for address;
   using SafeCast          for int;
   using FixedPointMathLib for uint;
-
-  error StaleData            ();
-  error IncompleteRound      ();
-  error CrTooLow             ();
-  error CrTooHigh            ();
-  error InvalidNft           ();
-  error NotOwner             ();
-  error MissingPermission    ();
-
-  event Deposit  (uint indexed id, uint amount);
-  event Redeem   (uint indexed from, uint amount, address indexed to, uint collat);
-  event Liquidate(uint indexed id, address indexed to);
-  event Withdraw (uint indexed from, address indexed to, uint amount);
-  event MintDyad (uint indexed from, address indexed to, uint amount);
-  event BurnDyad (uint indexed id, uint amount);
 
   uint public constant MIN_COLLATERIZATION_RATIO = 3e18; // 300%
 
@@ -44,11 +29,11 @@ contract Vault is Initializable {
   IERC20        public collateral;
   IAggregatorV3 public oracle;
 
-  modifier isNftOwner(uint id) {
-    if (dNft.ownerOf(id) != msg.sender) revert NotOwner(); _;
-  }
   modifier isValidNft(uint id) {
     if (id >= dNft.totalSupply()) revert InvalidNft(); _;
+  }
+  modifier isNftOwner(uint id) {
+    if (dNft.ownerOf(id) != msg.sender) revert NotOwner(); _;
   }
   modifier isNftOwnerOrHasPermission(uint id) {
     if (!dNft.hasPermission(id, msg.sender)) revert MissingPermission() ; _;
@@ -71,6 +56,7 @@ contract Vault is Initializable {
       oracle     = IAggregatorV3(_oracle);
   }
 
+  /// @inheritdoc IVault
   function deposit(uint id, uint amount) 
     external 
       isValidNft(id) 
@@ -80,6 +66,7 @@ contract Vault is Initializable {
     emit Deposit(id, amount);
   }
 
+  /// @inheritdoc IVault
   function withdraw(uint from, address to, uint amount) 
     external 
       isNftOwnerOrHasPermission(from) 
@@ -90,6 +77,7 @@ contract Vault is Initializable {
       emit Withdraw(from, to, amount);
   }
 
+  /// @inheritdoc IVault
   function mintDyad(uint from, address to, uint amount)
     external 
       isNftOwnerOrHasPermission(from)
@@ -100,6 +88,7 @@ contract Vault is Initializable {
       emit MintDyad(from, to, amount);
   }
 
+  /// @inheritdoc IVault
   function burnDyad(uint id, uint amount) 
     external 
   {
@@ -108,6 +97,7 @@ contract Vault is Initializable {
     emit BurnDyad(id, amount);
   }
 
+  /// @inheritdoc IVault
   function liquidate(uint id, address to, uint amount) 
     external {
       if (_collatRatio(id) >= MIN_COLLATERIZATION_RATIO) revert CrTooHigh(); 
@@ -117,6 +107,7 @@ contract Vault is Initializable {
       emit Liquidate(id, to);
   }
 
+  /// @inheritdoc IVault
   function redeem(uint from, address to, uint amount)
     external 
       isNftOwnerOrHasPermission(from)
