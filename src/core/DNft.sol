@@ -4,21 +4,10 @@ pragma solidity =0.8.17;
 import {ERC721, ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {SafeTransferLib} from "@solmate/src/utils/SafeTransferLib.sol";
 import {Owned} from "@solmate/src/auth/Owned.sol";
+import {IDNft} from "../interfaces/IDNft.sol";
 
-contract DNft is ERC721Enumerable, Owned {
+contract DNft is ERC721Enumerable, Owned, IDNft {
   using SafeTransferLib for address;
-
-  event MintNft(uint indexed id, address indexed to);
-  event Grant  (uint indexed id, address indexed operator);
-  event Revoke (uint indexed id, address indexed operator);
-
-  error NotOwner             ();
-  error NotFactory           ();
-  error PublicMintsExceeded  ();
-  error InsiderMintsExceeded ();
-  error IncorrectEthSacrifice();
-  error NotLiquidator        ();
-  error AlreadySet           ();
 
   uint public constant INSIDER_MINTS = 300; 
   uint public constant PUBLIC_MINTS  = 1700; 
@@ -44,14 +33,6 @@ contract DNft is ERC721Enumerable, Owned {
 
   constructor() ERC721("Dyad NFT", "dNFT") 
                 Owned(msg.sender) {}
-
-  function setFactory(address _factory) 
-    external 
-      onlyOwner 
-    {
-      if (factory != address(0)) revert AlreadySet();
-      factory = _factory;
-  }
 
   function mintNft(address to)
     external 
@@ -80,6 +61,7 @@ contract DNft is ERC721Enumerable, Owned {
       return id;
   }
 
+  /// @inheritdoc IDNft
   function grant(uint id, address operator) 
     external 
       isNftOwner(id) 
@@ -88,6 +70,7 @@ contract DNft is ERC721Enumerable, Owned {
       emit Grant(id, operator);
   }
 
+  /// @inheritdoc IDNft
   function revoke(uint id, address operator) 
     external 
       isNftOwner(id) 
@@ -107,6 +90,14 @@ contract DNft is ERC721Enumerable, Owned {
           id2permission[id][operator].lastUpdated > id2lastOwnershipChange[id]
         )
       );
+  }
+
+  function setFactory(address _factory) 
+    external 
+      onlyOwner 
+    {
+      if (factory != address(0)) revert AlreadySet();
+      factory = _factory;
   }
 
   function addLiquidator(address liquidator)

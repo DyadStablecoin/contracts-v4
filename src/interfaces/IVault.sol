@@ -18,7 +18,7 @@ interface IVault {
   event BurnDyad (uint indexed id, uint amount);
 
   /**
-   * @notice Deposit ETH 
+   * @notice Deposit collateral 
    * @dev Will revert:
    *      - If new deposit equals zero shares
    *      - If dNFT with id `id` does not exist
@@ -27,11 +27,12 @@ interface IVault {
    * @dev For Auditors:
    *      - To save gas it does not check if `msg.value` is zero 
    * @param id Id of the dNFT that gets the deposited DYAD
+   * @param id Amount of collateral to deposit
    */
   function deposit(uint id, uint amount) external;
 
   /**
-   * @notice Withdraw ETH from dNFT
+   * @notice Withdraw collateral from dNFT
    * @dev Will revert:
    *      - If `msg.sender` is not the owner of the dNFT AND does not have 
    *        permission
@@ -43,10 +44,10 @@ interface IVault {
    * @dev For Auditors:
    *      - To save gas it does not check if `amount` is 0 
    *      - To save gas it only fails implicitly if `from` does not have enough
-   *        deposited ETH
+   *        deposited collateral
    * @param from Id of the dNFT to withdraw from
-   * @param to Address to send the ETH to
-   * @param amount Amount of ETH to withdraw
+   * @param to Address to send the collateral to
+   * @param amount Amount of collateral to withdraw
    */
   function withdraw(uint from, address to, uint amount) external;
 
@@ -55,7 +56,7 @@ interface IVault {
    * @dev Will revert:
    *      - If `msg.sender` is not the owner of the dNFT AND does not have 
    *        permission
-   *      - If amount is larger than the dNFT ETH deposit
+   *      - If amount is larger than the dNFT collateral deposit
    *      - If Collateralization Ratio is is less than the min collaterization 
    *        ratio after the mint
    * @dev Emits:
@@ -83,12 +84,12 @@ interface IVault {
   function burnDyad(uint id, uint amount) external;
 
   /**
-   * @notice Redeem DYAD ERC20 for ETH
+   * @notice Redeem DYAD ERC20 for collateral
    * @dev Will revert:
    *      - If DYAD to redeem is larger thatn `msg.sender` DYAD balance
    *      - If amount exceeds the dNFT DYAD balance
-   *      - If amount of ETH exceeds the dNFT ETH balance
-   *      - If the ETH transfer fails
+   *      - If amount of collateral exceeds the dNFT collateral balance
+   *      - If the collateral transfer fails
    * @dev Emits:
    *      - Redeem(uint indexed from, address indexed to, uint amount)
    * @dev For Auditors:
@@ -97,13 +98,13 @@ interface IVault {
    *        possible if `msg.sender` does not have enough DYAD. The dyad contract
    *        is trusted so it introduces no re-entrancy risk. The revert is implicit
    *        and happens in the _burn function of the ERC20 contract as an underflow.
-   *      - There is a re-entrancy risk while transfering the ETH, that is why the 
-   *        `all state changes are done before the ETH transfer. I do not see why
+   *      - There is a re-entrancy risk while transfering the collateral, that is why the 
+   *        `all state changes are done before the collateral transfer. I do not see why
    *        a `nonReentrant` modifier would be needed here, lets save the gas.
    * @param from dNFT to redeem from
-   * @param to Address to send the ETH to
+   * @param to Address to send the collateral to
    * @param amount Amount of DYAD to redeem
-   * @return eth Amount of ETH redeemed for DYAD
+   * @return collateral Amount of collateral redeemed for DYAD
    */
   function redeem(uint from, address to, uint amount) external returns (uint);
 
@@ -112,7 +113,7 @@ interface IVault {
    *         to a new owner
    * @dev Will revert:
    *      - If dNFT is over the `LIQUIDATION_THRESHLD` after deposit
-   *      - If ETH sent is not enough to put it over the `LIQUIDATION_THRESHLD`
+   *      - If collateral sent is not enough to put it over the `LIQUIDATION_THRESHLD`
    * @dev Emits:
    *      - Liquidate(address indexed to, uint indexed id)
    * @dev For Auditors:
