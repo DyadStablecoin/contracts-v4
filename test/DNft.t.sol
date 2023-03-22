@@ -12,33 +12,33 @@ contract DNftsTest is BaseTest {
     assertEq(dNft.factory(), address(factory));
   }
 
-  // // -------------------- mintNft --------------------
-  // function test_mintNft() public {
-  //   dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
-  // }
-  // function testCannot_mintNft_publicMintsExceeded() public {
-  //   for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
-  //     dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
-  //   }
-  //   uint ethSacrifice = dNft.ETH_SACRIFICE();
-  //   vm.expectRevert();
-  //   dNft.mintNft{value: ethSacrifice}(address(this));
-  // }
+  // -------------------- mintNft --------------------
+  function test_mintNft() public {
+    dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+  }
+  function testCannot_mintNft_publicMintsExceeded() public {
+    for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
+      dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    }
+    uint ethSacrifice = dNft.ETH_SACRIFICE();
+    vm.expectRevert();
+    dNft.mintNft{value: ethSacrifice}(address(this));
+  }
 
-  // // -------------------- mintInsiderNft --------------------
-  // function test_mintInsiderNft() public {
-  //   vm.prank(MAINNET_OWNER);
-  //   dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
-  // }
-  // function testCannot_mintInsiderNft_NotOwner() public {
-  //   vm.expectRevert();
-  //   dNft.mintInsiderNft(address(this));
-  // }
-  // function testCannot_mintInsiderNft_insiderMintsExceeded() public {
-  //   for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
-  //     dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
-  //   }
-  //   vm.expectRevert();
-  //   dNft.mintInsiderNft(address(this));
-  // }
+  // -------------------- mintInsiderNft --------------------
+  function test_mintInsiderNft() public {
+    vm.prank(MAINNET_OWNER);
+    dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+  }
+  function testCannot_mintInsiderNft_NotOwner() public {
+    vm.expectRevert();
+    dNft.mintInsiderNft(address(this));
+  }
+  function testCannot_mintInsiderNft_insiderMintsExceeded() public {
+    for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
+      dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    }
+    vm.expectRevert();
+    dNft.mintInsiderNft(address(this));
+  }
 }
