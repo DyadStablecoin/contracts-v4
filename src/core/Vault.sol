@@ -12,7 +12,7 @@ import {IAggregatorV3} from "../interfaces/AggregatorV3Interface.sol";
 import {Dyad} from "./Dyad.sol";
 import {DNft} from "./DNft.sol";
 
-contract Vault is  IVault {
+contract Vault is IVault {
   using SafeERC20         for ERC20;
   using SafeCast          for int;
   using FixedPointMathLib for uint;
