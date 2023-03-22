@@ -8,6 +8,8 @@ contract VaultTest is BaseTest {
   function test_deposit() public {
     uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
     assertEq(vault.id2collat(id), 0 ether);
+
+    collat.approve(address(vault), 10 ether);
     vault.deposit(id, 10 ether);
     assertEq(vault.id2collat(id), 10 ether);
   }
