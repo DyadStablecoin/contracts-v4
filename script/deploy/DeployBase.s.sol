@@ -21,14 +21,8 @@ contract DeployBase is Script, Parameters {
     returns (address, address, address, address) {
       vm.startBroadcast();
 
-      Vault        vaultImpl = new Vault();
-      Dyad         dyadImpl  = new Dyad();
-      DNft         dNft      = new DNft();
-      VaultFactory factory   = new VaultFactory(
-        address(dNft),
-        address(vaultImpl), 
-        address(dyadImpl) 
-      );
+      DNft         dNft    = new DNft();
+      VaultFactory factory = new VaultFactory(address(dNft));
       dNft.setFactory(address(factory));
       dNft.transferOwnership(address(_owner));
 

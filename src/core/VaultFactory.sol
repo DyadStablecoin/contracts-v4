@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.17;
 
-import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 import {Vault} from "./Vault.sol";
@@ -10,24 +9,12 @@ import {DNft} from "./DNft.sol";
 import {IVaultFactory} from "../interfaces/IVaultFactory.sol";
 
 contract VaultFactory is IVaultFactory {
-  using Clones for address;
-
   DNft    public immutable dNft;
-  address public immutable vaultImpl;
-  address public immutable dyadImpl;
 
   // collateral => oracle => vault
   mapping(address => mapping(address => address)) public vaults;
 
-  constructor(
-    address _dNft,
-    address _vaultImpl, 
-    address _dyadImpl
-  ) { 
-    dNft      = DNft(_dNft); 
-    vaultImpl = _vaultImpl;
-    dyadImpl  = _dyadImpl;
-  }
+  constructor(address _dNft) { dNft = DNft(_dNft); }
 
   /// @inheritdoc IVaultFactory
   function deploy(
@@ -47,22 +34,20 @@ contract VaultFactory is IVaultFactory {
       string memory collateralSymbol = ERC20(collateral).symbol(); 
       if (bytes(collateralSymbol).length == 0) revert InvalidCollateral();
 
-      Dyad dyad = Dyad(dyadImpl.clone());
-      dyad.initialize(
+      Dyad dyad = new Dyad(
         string.concat(collateralSymbol, "DYAD-"),
         string.concat("d", collateralSymbol)
       );
 
-      Vault vault = Vault(vaultImpl.clone());
-      vault.initialize(
+      Vault vault = new Vault(
         address(dNft), 
         address(dyad),
         collateral,
         oracle
       );
 
-      dNft.addLiquidator(address(vault)); 
-      dyad.setOwner     (address(vault));
+      dNft.addLiquidator    (address(vault)); 
+      dyad.transferOwnership(address(vault));
       vaults[collateral][oracle] = address(vault);
       emit Deploy(address(vault), address(dyad));
       return (address(vault), address(dyad));
