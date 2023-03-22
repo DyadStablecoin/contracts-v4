@@ -9,7 +9,7 @@ import {DNft} from "./DNft.sol";
 import {IVaultFactory} from "../interfaces/IVaultFactory.sol";
 
 contract VaultFactory is IVaultFactory {
-  DNft    public immutable dNft;
+  DNft public immutable dNft;
 
   // collateral => oracle => vault
   mapping(address => mapping(address => address)) public vaults;
