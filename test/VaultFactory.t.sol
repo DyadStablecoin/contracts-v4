@@ -5,7 +5,7 @@ import {BaseTest} from "./BaseTest.sol";
 
 contract VaultFactoryTest is BaseTest {
   function test_correctDeployment() public {
-    assertTrue(factory.vaults(MAINNET_WETH, MAINNET_ORACLE) != address(0));
+    assertTrue(factory.vaults(MAINNET_WETH, address(oracleMock)) != address(0));
     assertTrue(dNft.isLiquidator(address(vault)));
     assertTrue(address(vault.dNft())   != address(0));
     assertTrue(address(vault.collat()) != address(0));
@@ -29,6 +29,6 @@ contract VaultFactoryTest is BaseTest {
   }
   function test_fail_deploySameVaultAgain() public {
     vm.expectRevert();
-    factory.deploy(MAINNET_WETH, MAINNET_ORACLE);
+    factory.deploy(MAINNET_WETH, MAINNET_WETH);
   }
 }

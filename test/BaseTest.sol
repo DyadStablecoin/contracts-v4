@@ -3,6 +3,7 @@ pragma solidity =0.8.17;
 
 import "forge-std/Test.sol";
 import "forge-std/console.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {DeployBase} from "../script/deploy/DeployBase.s.sol";
 import {DNft} from "../src/core/DNft.sol";
 import {Dyad} from "../src/core/Dyad.sol";
@@ -19,6 +20,7 @@ contract BaseTest is Test, Parameters {
   Vault        vault;
   VaultFactory factory;
   OracleMock   oracleMock;
+  ERC20        collat;
 
   receive() external payable {}
 
@@ -33,20 +35,32 @@ contract BaseTest is Test, Parameters {
     ) = deployBase.deploy(
       MAINNET_OWNER,
       MAINNET_WETH,
-      MAINNET_ORACLE
+      address(oracleMock)
     );
     dNft    = DNft(_dNft);
     dyad    = Dyad(_dyad);
     vault   = Vault(_vault);
+    collat  = ERC20(MAINNET_WETH);
     factory = VaultFactory(_factory);
     vm.warp(block.timestamp + 1 days);
+
+    deal(MAINNET_WETH, address(this), 1e18 ether);
   }
 
-  function overwrite(address _contract, string memory signature, uint value) public {
+  function overwrite(
+    address _contract,
+    string memory signature,
+    uint value
+  ) public {
     stdstore.target(_contract).sig(signature).checked_write(value); 
   }
 
-  function onERC721Received(address, address, uint256, bytes calldata) external pure returns (bytes4) {
+  function onERC721Received(
+    address,
+    address,
+    uint256,
+    bytes calldata
+  ) external pure returns (bytes4) {
     return 0x150b7a02;
   }
 }
