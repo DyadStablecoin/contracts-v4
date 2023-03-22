@@ -12,6 +12,6 @@ contract Dyad is ERC20, Owned {
   ) ERC20(name, symbol, 18) 
     Owned(owner) {}
 
-  function mint(address to,   uint amount) public onlyOwner { _mint(to,   amount); }
-  function burn(address from, uint amount) public onlyOwner { _burn(from, amount); }
+  function mint(address to,   uint amount) external onlyOwner {_mint(to,   amount);}
+  function burn(address from, uint amount) external onlyOwner {_burn(from, amount);}
 }
