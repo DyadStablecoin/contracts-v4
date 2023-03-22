@@ -22,7 +22,7 @@ contract DeployBase is Script, Parameters {
       vm.startBroadcast();
 
       DNft         dNft    = new DNft();
-      VaultFactory factory = new VaultFactory(address(dNft));
+      VaultFactory factory = new VaultFactory(dNft);
       dNft.setFactory(address(factory));
       dNft.transferOwnership(address(_owner));
 

@@ -14,7 +14,7 @@ contract VaultFactory is IVaultFactory {
   // collateral => oracle => vault
   mapping(address => mapping(address => address)) public vaults;
 
-  constructor(address _dNft) { dNft = DNft(_dNft); }
+  constructor(DNft _dNft) { dNft = _dNft; }
 
   /// @inheritdoc IVaultFactory
   function deploy(
