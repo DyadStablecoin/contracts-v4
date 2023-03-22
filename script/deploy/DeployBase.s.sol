@@ -26,12 +26,17 @@ contract DeployBase is Script, Parameters {
       dNft.setFactory(address(factory));
       dNft.transferOwnership(address(_owner));
 
-      (address vault, address dyad) = factory.deploy(
+      address vault = factory.deploy(
         _collateral,
         _oracle
       );
 
       vm.stopBroadcast();
-      return (address(dNft), address(dyad), address(vault), address(factory));
+      return (
+        address(dNft),
+        address(Vault(vault).dyad()),
+        address(vault),
+        address(factory)
+      );
   }
 }

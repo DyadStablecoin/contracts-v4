@@ -9,6 +9,7 @@ interface IVault {
   error InvalidNft           ();
   error NotOwner             ();
   error MissingPermission    ();
+  error InvalidCollateral();
 
   event Deposit  (uint indexed id, uint amount);
   event Redeem   (uint indexed from, uint amount, address indexed to, uint collat);

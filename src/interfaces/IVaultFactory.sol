@@ -2,7 +2,7 @@
 pragma solidity = 0.8.17;
 
 interface IVaultFactory {
-  event Deploy(address indexed vault, address indexed dyad);
+  event Deploy(address indexed vault);
 
   error InvalidCollateral();
   error InvalidOracle();
@@ -20,13 +20,10 @@ interface IVaultFactory {
    * @param collateral Address of the ERC-20 token to use as collateral
    * @param oracle     Address of the Oracle to use
    * @return vault     Address of the deployed Vault
-   * @return dyad      Address of the newly deployed DYAD type
    */
   function deploy(
     address collateral,
     address oracle
-  ) external returns (
-    address, 
-    address
-  );
+  ) external 
+    returns (address);
 }

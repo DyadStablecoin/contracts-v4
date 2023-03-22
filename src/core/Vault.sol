@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.17;
 
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {ERC721, ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {FixedPointMathLib} from "@solmate/src/utils/FixedPointMathLib.sol";
@@ -13,7 +13,7 @@ import {Dyad} from "./Dyad.sol";
 import {DNft} from "./DNft.sol";
 
 contract Vault is  IVault {
-  using SafeERC20         for IERC20;
+  using SafeERC20         for ERC20;
   using SafeCast          for int;
   using FixedPointMathLib for uint;
 
@@ -24,7 +24,7 @@ contract Vault is  IVault {
 
   DNft          public dNft;
   Dyad          public dyad;
-  IERC20        public collat;
+  ERC20         public collat;
   IAggregatorV3 public oracle;
 
   modifier isValidNft(uint id) {
@@ -39,14 +39,22 @@ contract Vault is  IVault {
 
   constructor(
       address _dNft, 
-      address _dyad,
       address _collat, // collateral
       address _oracle 
   ) {
       dNft   = DNft(_dNft);
-      dyad   = Dyad(_dyad);
-      collat = IERC20(_collat); 
+      collat = ERC20(_collat); 
       oracle = IAggregatorV3(_oracle);
+
+      // `symbol` is not officially part of the ERC20 standard!
+      string memory collateralSymbol = collat.symbol(); 
+      if (bytes(collateralSymbol).length == 0) revert InvalidCollateral();
+
+      dyad = new Dyad(
+        string.concat(collateralSymbol, "DYAD-"),
+        string.concat("d", collateralSymbol), 
+        address(this)
+      );
   }
 
   /// @inheritdoc IVault

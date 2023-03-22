@@ -21,35 +21,21 @@ contract VaultFactory is IVaultFactory {
       address collateral, 
       address oracle
   ) external 
-    returns (
-      address,
-      address
-    ) {
+    returns (address) {
       if (collateral == address(0)) revert InvalidCollateral();
       if (oracle     == address(0)) revert InvalidOracle();
       if (collateral == oracle)     revert CollateralEqualsOracle();
       if (vaults[collateral][oracle] != address(0)) revert AlreadyDeployed();
 
-      // `symbol` is not officially part of the ERC20 standard!
-      string memory collateralSymbol = ERC20(collateral).symbol(); 
-      if (bytes(collateralSymbol).length == 0) revert InvalidCollateral();
-
-      Dyad dyad = new Dyad(
-        string.concat(collateralSymbol, "DYAD-"),
-        string.concat("d", collateralSymbol)
-      );
-
       Vault vault = new Vault(
         address(dNft), 
-        address(dyad),
         collateral,
         oracle
       );
 
-      dNft.addLiquidator    (address(vault)); 
-      dyad.transferOwnership(address(vault));
+      dNft.addLiquidator(address(vault)); 
       vaults[collateral][oracle] = address(vault);
-      emit Deploy(address(vault), address(dyad));
-      return (address(vault), address(dyad));
+      emit Deploy(address(vault));
+      return address(vault);
   }
 }
