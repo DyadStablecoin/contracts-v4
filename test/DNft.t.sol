@@ -62,6 +62,10 @@ contract DNftsTest is BaseTest {
     dNft.grant(id, address(this));
     (hasPermission,) = dNft.id2permission(id, address(this));
     assertTrue(hasPermission);
+
+    vm.prank(address(1));
+    vm.roll(block.number + 1);
+    assertTrue(dNft.hasPermission(id, address(this)));
   }
 
   // -------------------- revoke --------------------
@@ -72,6 +76,10 @@ contract DNftsTest is BaseTest {
     assertTrue(hasPermission);
     dNft.revoke(id, address(this));
     (hasPermission,) = dNft.id2permission(id, address(this));
+    assertFalse(hasPermission);
+
+    vm.roll(block.number + 1);
+    hasPermission = dNft.hasPermission(id, address(1));
     assertFalse(hasPermission);
   }
 }
