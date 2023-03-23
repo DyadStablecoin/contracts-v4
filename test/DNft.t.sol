@@ -53,4 +53,25 @@ contract DNftsTest is BaseTest {
     dNft.addLiquidator(address(this));
     assertFalse(dNft.isLiquidator(address(this)));
   }
+
+  // -------------------- grant --------------------
+  function test_grant() public {
+    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    (bool hasPermission,) = dNft.id2permission(id, address(this));
+    assertFalse(hasPermission);
+    dNft.grant(id, address(this));
+    (hasPermission,) = dNft.id2permission(id, address(this));
+    assertTrue(hasPermission);
+  }
+
+  // -------------------- revoke --------------------
+  function test_revoke() public {
+    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    dNft.grant(id, address(this));
+    (bool hasPermission,) = dNft.id2permission(id, address(this));
+    assertTrue(hasPermission);
+    dNft.revoke(id, address(this));
+    (hasPermission,) = dNft.id2permission(id, address(this));
+    assertFalse(hasPermission);
+  }
 }
