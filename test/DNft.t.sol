@@ -51,5 +51,6 @@ contract DNftsTest is BaseTest {
   function test_fail_addLiquidator_notFactory() public {
     vm.expectRevert();
     dNft.addLiquidator(address(this));
+    assertFalse(dNft.isLiquidator(address(this)));
   }
 }
