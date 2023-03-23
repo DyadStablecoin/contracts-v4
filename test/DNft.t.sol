@@ -41,4 +41,15 @@ contract DNftsTest is BaseTest {
     vm.expectRevert();
     dNft.mintInsiderNft(address(this));
   }
+
+  // -------------------- addLiquidator --------------------
+  function test_addLiquidator() public {
+    vm.prank(address(factory));
+    dNft.addLiquidator(address(this));
+    assertTrue(dNft.isLiquidator(address(this)));
+  }
+  function test_fail_addLiquidator_notFactory() public {
+    vm.expectRevert();
+    dNft.addLiquidator(address(this));
+  }
 }
