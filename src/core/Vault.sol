@@ -41,7 +41,7 @@ contract Vault is IVault {
       address       _dNft, 
       address       _collat,       // collateral
       string memory _collatSymbol, 
-      address       _collatOracle  // collat/USD oracle
+      address       _collatOracle  // collat/USD chainlink oracle
   ) {
       dNft   = DNft(_dNft);
       collat = ERC20(_collat); 

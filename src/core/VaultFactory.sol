@@ -23,9 +23,9 @@ contract VaultFactory is IVaultFactory {
       address       collatOracle
   ) external 
     returns (address) {
-      if (collat == address(0)) revert InvalidCollateral();
-      if (collatOracle     == address(0)) revert InvalidOracle();
-      if (collat == collatOracle)     revert CollateralEqualsOracle();
+      if (collat       == address(0))   revert InvalidCollateral();
+      if (collatOracle == address(0))   revert InvalidOracle();
+      if (collat       == collatOracle) revert CollateralEqualsOracle();
       if (vaults[collat][collatOracle] != address(0)) revert AlreadyDeployed();
 
       Vault vault = new Vault(
