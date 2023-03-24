@@ -12,9 +12,10 @@ import {Vault} from "../../src/core/Vault.sol";
 
 contract DeployBase is Script, Parameters {
   function deploy(
-      address _owner,
-      address _collateral,
-      address _oracle
+      address       _owner,
+      address       _collat,
+      string memory _collatSymbol, 
+      address       _collatOracle
   )
     public 
     payable 
@@ -27,8 +28,9 @@ contract DeployBase is Script, Parameters {
       dNft.transferOwnership(address(_owner));
 
       address vault = factory.deploy(
-        _collateral,
-        _oracle
+        _collat,
+        _collatSymbol, 
+        _collatOracle 
       );
 
       vm.stopBroadcast();

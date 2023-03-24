@@ -18,23 +18,25 @@ contract VaultFactory is IVaultFactory {
 
   /// @inheritdoc IVaultFactory
   function deploy(
-      address collateral, 
-      address oracle
+      address       collat, 
+      string memory collatSymbol,
+      address       collatOracle
   ) external 
     returns (address) {
-      if (collateral == address(0)) revert InvalidCollateral();
-      if (oracle     == address(0)) revert InvalidOracle();
-      if (collateral == oracle)     revert CollateralEqualsOracle();
-      if (vaults[collateral][oracle] != address(0)) revert AlreadyDeployed();
+      if (collat == address(0)) revert InvalidCollateral();
+      if (collatOracle     == address(0)) revert InvalidOracle();
+      if (collat == collatOracle)     revert CollateralEqualsOracle();
+      if (vaults[collat][collatOracle] != address(0)) revert AlreadyDeployed();
 
       Vault vault = new Vault(
         address(dNft), 
-        collateral,
-        oracle
+        collat,
+        collatSymbol,
+        collatOracle
       );
 
       dNft.addLiquidator(address(vault)); 
-      vaults[collateral][oracle] = address(vault);
+      vaults[collat][collatOracle] = address(vault);
       emit Deploy(address(vault));
       return address(vault);
   }
