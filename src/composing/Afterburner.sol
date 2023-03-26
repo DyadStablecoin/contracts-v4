@@ -5,26 +5,50 @@ import {DNft} from "../core/DNft.sol";
 import {DyadPlus} from "../composing/DyadPlus.sol";
 import {IAfterburner} from "../interfaces/IAfterburner.sol";
 import {Vault} from "../core/Vault.sol";
+import {VaultFactory} from "../core/VaultFactory.sol";
 
 contract Afterburner is IAfterburner {
-  DNft     dNft;
-  DyadPlus dyadPlus;
+  DNft         dNft;
+  VaultFactory vaultFactory;
+  DyadPlus     dyadPlus;
 
   mapping(address => bool)                  public vaults;
   mapping(uint => mapping(address => uint)) public deposits;
 
-  constructor(DNft _dNft, DyadPlus _dyadPlus) {
-    dNft     = _dNft;
-    dyadPlus = _dyadPlus;
+  constructor(
+    DNft         _dNft,
+    VaultFactory _vaultFactory,
+    DyadPlus     _dyadPlus
+  ) {
+    dNft         = _dNft;
+    vaultFactory = _vaultFactory;
+    dyadPlus     = _dyadPlus;
   }
 
   function addVault(address _vault) external {
+    require(vaultFactory.isVault(_vault));
     vaults[_vault] = true;
   }
 
-  function deposit(uint _tokenId, address _vault, uint _amount) external {
-    require(vaults[_vault]);
-    Vault(_vault).collat().transferFrom(msg.sender, address(this), _amount);
-    deposits[_tokenId][_vault] += _amount;
+  function deposit(
+      uint    tokenId,
+      address vault,
+      uint    amount
+  ) external {
+      require(vaults[vault]);
+      Vault(vault).collat().transferFrom(msg.sender, address(this), amount);
+      deposits[tokenId][vault] += amount;
+  }
+
+  function withdraw(
+      uint    tokenId,
+      address vault,
+      uint    amount,
+      address recipient
+  ) external {
+      require(vaults[vault]);
+      require(deposits[tokenId][vault] >= amount);
+      deposits[tokenId][vault] -= amount;
+      Vault(vault).collat().transfer(recipient, amount);
   }
 }

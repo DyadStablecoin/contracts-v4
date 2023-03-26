@@ -13,6 +13,7 @@ contract VaultFactory is IVaultFactory {
 
   // collateral => oracle => vault
   mapping(address => mapping(address => address)) public vaults;
+  mapping(address => bool)                        public isVault;
 
   constructor(DNft _dNft) { dNft = _dNft; }
 
@@ -37,6 +38,7 @@ contract VaultFactory is IVaultFactory {
 
       dNft.addLiquidator(address(vault)); 
       vaults[collat][collatOracle] = address(vault);
+      isVault[address(vault)]      = true;
       emit Deploy(address(vault));
       return address(vault);
   }
