@@ -25,6 +25,7 @@ contract Afterburner is IAfterburner {
     dyadPlus     = _dyadPlus;
   }
 
+  // onboard new collateral type
   function addVault(address _vault) external {
     require(vaultFactory.isVault(_vault));
     vaults[_vault] = true;
@@ -50,5 +51,12 @@ contract Afterburner is IAfterburner {
       require(deposits[tokenId][vault] >= amount);
       deposits[tokenId][vault] -= amount;
       Vault(vault).collat().transfer(recipient, amount);
+  }
+
+  function mint(
+      address recipient,
+      uint    amount
+  ) external {
+      dyadPlus.mint(recipient, amount);
   }
 }
