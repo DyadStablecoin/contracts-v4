@@ -59,11 +59,9 @@ contract Vault is IVault {
     public 
       isValidNft(id) 
     {
-      uint balancePre = collat.balanceOf(address(this));
       collat.safeTransferFrom(msg.sender, address(this), amount);
-      uint actualAmount = collat.balanceOf(address(this)) - balancePre;
-      id2collat[id] += actualAmount;
-      emit Deposit(id, actualAmount);
+      id2collat[id] += amount;
+      emit Deposit(id, amount);
   }
 
   /// @inheritdoc IVault
@@ -73,11 +71,9 @@ contract Vault is IVault {
     returns (uint) {
       id2collat[from] -= amount;
       if (_collatRatio(from) < MIN_COLLATERIZATION_RATIO) revert CrTooLow(); 
-      uint balancePre = collat.balanceOf(to);
       collat.safeTransfer(to, amount);
-      uint actualAmount = collat.balanceOf(to) - balancePre;
-      emit Withdraw(from, to, actualAmount);
-      return actualAmount;
+      emit Withdraw(from, to, amount);
+      return amount;
   }
 
   /// @inheritdoc IVault
@@ -117,9 +113,9 @@ contract Vault is IVault {
       dyad.burn(msg.sender, amount);
       id2dyad[from]    -= amount;
       uint _collat      = amount * (10**oracle.decimals()) / _collatPrice();
-      uint actualAmount = withdraw(from, to, _collat);
-      emit Redeem(from, amount, to, actualAmount);
-      return actualAmount;
+      withdraw(from, to, _collat);
+      emit Redeem(from, amount, to, _collat);
+      return _collat;
   }
 
   // collateralization ratio of the dNFT
