@@ -14,6 +14,7 @@ contract Afterburner is IAfterburner {
 
   mapping(address => bool)                  public vaults;
   mapping(uint => mapping(address => uint)) public deposits;
+  mapping(address => uint)                  public vaultVotes;
 
   constructor(
     DNft         _dNft,
@@ -29,6 +30,14 @@ contract Afterburner is IAfterburner {
   function addVault(address _vault) external {
     require(vaultFactory.isVault(_vault));
     vaults[_vault] = true;
+  }
+
+  function voteFor(address vault) external {
+    vaultVotes[vault] += 1;
+  }
+
+  function voteAgainst(address vault) external {
+    vaultVotes[vault] -= 1;
   }
 
   function deposit(
