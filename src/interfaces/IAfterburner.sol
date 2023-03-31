@@ -2,7 +2,6 @@
 pragma solidity =0.8.17;
 
 interface IAfterburner {
-  error NotOwner();
 
   /**
    * @notice Deposit `amount` of a DYAD from a specific `vault` into Afterburner

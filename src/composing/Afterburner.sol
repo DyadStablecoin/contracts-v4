@@ -5,39 +5,20 @@ import {DNft} from "../core/DNft.sol";
 import {DyadPlus} from "../composing/DyadPlus.sol";
 import {IAfterburner} from "../interfaces/IAfterburner.sol";
 import {Vault} from "../core/Vault.sol";
+import {VaultsManager} from "./VaultsManager.sol";
 import {VaultFactory} from "../core/VaultFactory.sol";
 
-contract Afterburner is IAfterburner {
-  DNft         dNft;
-  VaultFactory vaultFactory;
+contract Afterburner is IAfterburner, VaultsManager {
   DyadPlus     dyadPlus;
 
-  mapping(address => bool)                  public vaults;
   mapping(uint => mapping(address => uint)) public deposits;
-  mapping(address => uint)                  public vaultVotes;
 
   constructor(
     DNft         _dNft,
-    VaultFactory _vaultFactory,
-    DyadPlus     _dyadPlus
-  ) {
-    dNft         = _dNft;
-    vaultFactory = _vaultFactory;
+    DyadPlus     _dyadPlus, 
+    VaultFactory _vaultFactory
+  ) VaultsManager(_dNft, _vaultFactory) {
     dyadPlus     = _dyadPlus;
-  }
-
-  // onboard new collateral type
-  function addVault(address _vault) external {
-    require(vaultFactory.isVault(_vault));
-    vaults[_vault] = true;
-  }
-
-  function voteFor(address vault) external {
-    vaultVotes[vault] += 1;
-  }
-
-  function voteAgainst(address vault) external {
-    vaultVotes[vault] -= 1;
   }
 
   function deposit(
