@@ -3,22 +3,15 @@ pragma solidity =0.8.17;
 
 import {DNft} from "../core/DNft.sol";
 import {VaultFactory} from "../core/VaultFactory.sol";
+import {IVaultsManager} from "../interfaces/IVaultsManager.sol";
 
-contract VaultsManager {
-  error AlreadyVotedFor();
-  error AlreadyVotedAgainst();
-  error NotOwner();
-  error TooManyForVotes();
-  error TooManyAgainstVotes();
-
-  event Voted(uint indexed id, address indexed vault, bool vote);
-
+contract VaultsManager is IVaultsManager {
   VaultFactory public immutable vaultFactory;
   DNft         public immutable dNft;
 
   mapping(address => bool)                  public vaults;
   mapping(address => uint)                  public vaultVotes;
-  mapping(uint => mapping(address => bool)) public votes;
+  mapping(uint => mapping(address => bool)) public hasVoted;
 
   uint public constant MIN_VOTES = 200; // will change
 
@@ -31,6 +24,7 @@ contract VaultsManager {
     vaultFactory = _vaultFactory;
   }
 
+  /// @inheritdoc IVaultsManager
   function voteFor(
       uint id,
       address vault
@@ -38,11 +32,12 @@ contract VaultsManager {
     external 
       isNftOwner(id) 
     {
-      if (votes[id][msg.sender]) revert AlreadyVotedFor(); 
+      if (hasVoted[id][msg.sender]) revert AlreadyVotedFor(); 
       vaultVotes[vault] += 1;
       emit Voted(id, vault, true);
   }
 
+  /// @inheritdoc IVaultsManager
   function voteAgainst(
       uint id,
       address vault
@@ -50,7 +45,7 @@ contract VaultsManager {
     external 
       isNftOwner(id) 
     {
-      if (!votes[id][msg.sender]) revert AlreadyVotedAgainst(); 
+      if (!hasVoted[id][msg.sender]) revert AlreadyVotedAgainst(); 
       vaultVotes[vault] -= 1;
       emit Voted(id, vault, false);
   }
