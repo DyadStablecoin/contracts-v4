@@ -27,7 +27,7 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
   mapping(uint => mapping (address => Permission)) public id2permission; 
   mapping(uint => uint)                            public id2lastOwnershipChange; 
 
-  mapping(uint => bool) public isUsedTicket; 
+  mapping(uint => bool) public usedTickets; 
 
   modifier isNftOwner(uint id) {
     if (ownerOf(id) != msg.sender) revert NotOwner(); _;
@@ -46,12 +46,11 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
     address to
   )
     external 
-    payable
     returns (uint) {
       if (tickets.ownerOf(ticket) != msg.sender) revert NotTicketOwner();
-      if (isUsedTicket[ticket])                  revert UsedTicket();
+      if (usedTickets[ticket])                   revert UsedTicket();
       if (++publicMints > PUBLIC_MINTS)          revert PublicMintsExceeded();
-      isUsedTicket[ticket] = true;
+      usedTickets[ticket] = true;
       return _mintNft(to);
   }
 
