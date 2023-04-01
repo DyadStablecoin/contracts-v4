@@ -57,6 +57,7 @@ contract Afterburner is IAfterburner, VaultsManager {
       Vault(vault).dyad().transferFrom(msg.sender, address(this), amount);
       dyadPlus.mint(recipient, amount);
       burnedDyad[tokenId][vault] += amount;
+      emit Minted(tokenId, vault, amount, recipient);
   }
 
   /// @inheritdoc IAfterburner
@@ -70,5 +71,6 @@ contract Afterburner is IAfterburner, VaultsManager {
       dyadPlus.transferFrom(recipient, address(this), amount);
       dyadPlus.burn(address(this), amount);
       burnedDyad[tokenId][vault] -= amount;
+      emit Redeemed(tokenId, vault, amount, recipient);
   }
 }
