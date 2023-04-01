@@ -23,6 +23,7 @@ contract Afterburner is IAfterburner, VaultsManager {
     dyadPlus     = _dyadPlus;
   }
 
+  /// @inheritdoc IAfterburner
   function deposit(
       uint    tokenId,
       address vault,
@@ -45,6 +46,7 @@ contract Afterburner is IAfterburner, VaultsManager {
       Vault(vault).collat().transfer(recipient, amount);
   }
 
+  /// @inheritdoc IAfterburner
   function mint(
       uint    tokenId,
       address vault,
@@ -55,5 +57,17 @@ contract Afterburner is IAfterburner, VaultsManager {
       Vault(vault).dyad().transferFrom(msg.sender, address(this), amount);
       dyadPlus.mint(recipient, amount);
       burnedDyad[tokenId][vault] += amount;
+  }
+
+  function redeem(
+      uint    tokenId,
+      address vault,
+      uint    amount, 
+      address recipient
+  ) external isNftOwner(tokenId) {
+      require(vaults[vault]);
+      dyadPlus.transferFrom(recipient, address(this), amount);
+      dyadPlus.burn(address(this), amount);
+      burnedDyad[tokenId][vault] -= amount;
   }
 }
