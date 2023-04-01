@@ -9,9 +9,10 @@ import {VaultsManager} from "./VaultsManager.sol";
 import {VaultFactory} from "../core/VaultFactory.sol";
 
 contract Afterburner is IAfterburner, VaultsManager {
-  DyadPlus dyadPlus;
+  DyadPlus public immutable dyadPlus;
 
-  mapping(uint => mapping(address => uint)) public deposits;
+  // dNFT id => (vault => deposited dyad)
+  mapping(uint => mapping(address => uint)) public depositedDyad;
   // dNFT id => (vault => burned dyad)
   mapping(uint => mapping(address => uint)) public burnedDyad;
 
@@ -28,10 +29,12 @@ contract Afterburner is IAfterburner, VaultsManager {
       uint    tokenId,
       address vault,
       uint    amount
-  ) external {
+  ) external 
+      isNftOwner(tokenId) 
+    {
       require(vaults[vault]);
       Vault(vault).collat().transferFrom(msg.sender, address(this), amount);
-      deposits[tokenId][vault] += amount;
+      depositedDyad[tokenId][vault] += amount;
   }
 
   function withdraw(
@@ -39,10 +42,11 @@ contract Afterburner is IAfterburner, VaultsManager {
       address vault,
       uint    amount,
       address recipient
-  ) external {
+  ) external 
+      isNftOwner(tokenId) 
+    {
       require(vaults[vault]);
-      require(deposits[tokenId][vault] >= amount);
-      deposits[tokenId][vault] -= amount;
+      depositedDyad[tokenId][vault] -= amount;
       Vault(vault).collat().transfer(recipient, amount);
   }
 
@@ -52,7 +56,9 @@ contract Afterburner is IAfterburner, VaultsManager {
       address vault,
       uint    amount, 
       address recipient
-  ) external isNftOwner(tokenId) {
+  ) external 
+      isNftOwner(tokenId) 
+    {
       require(vaults[vault]);
       Vault(vault).dyad().transferFrom(msg.sender, address(this), amount);
       dyadPlus.mint(recipient, amount);
@@ -66,7 +72,9 @@ contract Afterburner is IAfterburner, VaultsManager {
       address vault,
       uint    amount, 
       address recipient
-  ) external isNftOwner(tokenId) {
+  ) external 
+      isNftOwner(tokenId) 
+    {
       require(vaults[vault]);
       dyadPlus.transferFrom(recipient, address(this), amount);
       dyadPlus.burn(address(this), amount);
