@@ -11,7 +11,6 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
 
   uint public constant INSIDER_MINTS = 300; 
   uint public constant PUBLIC_MINTS  = 1700; 
-  uint public constant ETH_SACRIFICE = 0.1 ether; 
 
   uint    public insiderMints; // Number of insider mints
   uint    public publicMints;  // Number of public mints
@@ -28,6 +27,8 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
   mapping(uint => mapping (address => Permission)) public id2permission; 
   mapping(uint => uint)                            public id2lastOwnershipChange; 
 
+  mapping(uint => bool) public isMinted;
+
   modifier isNftOwner(uint id) {
     if (ownerOf(id) != msg.sender) revert NotOwner(); _;
   }
@@ -40,13 +41,17 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
   }
 
   /// @inheritdoc IDNft
-  function mintNft(address to)
+  function mintNft(
+    uint    ticket,
+    address to
+  )
     external 
     payable
     returns (uint) {
-      if (++publicMints > PUBLIC_MINTS) revert PublicMintsExceeded();
-      if (msg.value != ETH_SACRIFICE)   revert IncorrectEthSacrifice();
-      address(0).safeTransferETH(msg.value); // burn ETH
+      if (tickets.ownerOf(ticket) != msg.sender) revert NotTicketOwner();
+      if (isMinted[ticket])                      revert UsedTicket();
+      if (++publicMints > PUBLIC_MINTS)          revert PublicMintsExceeded();
+      isMinted[ticket] = true;
       return _mintNft(to);
   }
 

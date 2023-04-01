@@ -12,9 +12,10 @@ interface IDNft {
   error NotFactory           ();
   error PublicMintsExceeded  ();
   error InsiderMintsExceeded ();
-  error IncorrectEthSacrifice();
   error NotLiquidator        ();
   error AlreadySet           ();
+  error UsedTicket           ();
+  error NotTicketOwner       ();
 
   /**
    * @notice Mint a new dNFT to `to`
