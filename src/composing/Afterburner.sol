@@ -59,6 +59,7 @@ contract Afterburner is IAfterburner, VaultsManager {
       burnedDyad[tokenId][vault] += amount;
   }
 
+  /// @inheritdoc IAfterburner
   function redeem(
       uint    tokenId,
       address vault,

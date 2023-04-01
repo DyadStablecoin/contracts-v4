@@ -9,4 +9,6 @@ interface IAfterburner {
   function deposit(uint tokenId, address vault, uint amount) external;
 
   function mint(uint tokenId, address vault, uint amount, address recipient) external;
+
+  function redeem(uint tokenId, address vault, uint amount, address recipient) external;
 }
