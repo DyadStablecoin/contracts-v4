@@ -9,7 +9,7 @@ import {VaultsManager} from "./VaultsManager.sol";
 import {VaultFactory} from "../core/VaultFactory.sol";
 
 contract Afterburner is IAfterburner, VaultsManager {
-  DyadPlus     dyadPlus;
+  DyadPlus dyadPlus;
 
   mapping(uint => mapping(address => uint)) public deposits;
 
