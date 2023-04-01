@@ -17,6 +17,8 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
   uint    public publicMints;  // Number of public mints
   address public factory;
 
+  ERC721 public immutable tickets;
+
   struct Permission {
     bool    hasPermission; 
     uint248 lastUpdated;
@@ -30,8 +32,12 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
     if (ownerOf(id) != msg.sender) revert NotOwner(); _;
   }
 
-  constructor() ERC721("Dyad NFT", "dNFT") 
-                Owned(msg.sender) {}
+  constructor(ERC721 _tickets)
+      ERC721("Dyad NFT", "dNFT") 
+      Owned(msg.sender) 
+    {
+      tickets = _tickets;
+  }
 
   /// @inheritdoc IDNft
   function mintNft(address to)
