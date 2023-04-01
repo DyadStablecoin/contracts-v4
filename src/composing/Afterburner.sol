@@ -48,8 +48,8 @@ contract Afterburner is IAfterburner, VaultsManager {
   function mint(
       uint    tokenId,
       address vault,
-      address recipient,
-      uint    amount
+      uint    amount, 
+      address recipient
   ) external isNftOwner(tokenId) {
       require(vaults[vault]);
       Vault(vault).dyad().transferFrom(msg.sender, address(this), amount);
