@@ -12,6 +12,8 @@ contract Afterburner is IAfterburner, VaultsManager {
   DyadPlus dyadPlus;
 
   mapping(uint => mapping(address => uint)) public deposits;
+  // dNFT id => (vault => burned dyad)
+  mapping(uint => mapping(address => uint)) public burnedDyad;
 
   constructor(
     DNft         _dNft,
@@ -44,9 +46,14 @@ contract Afterburner is IAfterburner, VaultsManager {
   }
 
   function mint(
+      uint    tokenId,
+      address vault,
       address recipient,
       uint    amount
-  ) external {
+  ) external isNftOwner(tokenId) {
+      require(vaults[vault]);
+      Vault(vault).dyad().transferFrom(msg.sender, address(this), amount);
       dyadPlus.mint(recipient, amount);
+      burnedDyad[tokenId][vault] += amount;
   }
 }
