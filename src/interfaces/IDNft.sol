@@ -94,21 +94,4 @@ interface IDNft {
    * @param factory Address of the factory
    */
   function setFactory(address factory) external;
-
-  /**
-   * @notice Add a liquidator
-   * @dev Will revert:
-   *      - If `msg.sender` is not the factory
-   * @param liquidator Address of the liquidator
-   */
-  function addLiquidator(address liquidator) external;
-
-  /**
-   * @notice Transfer dNft with `id` to `to`
-   * @dev Will revert:
-   *      - If `msg.sender` is not a liquidator
-   * @param id Id of the dNFT to transfer
-   * @param to Address to send the dNFT to
-   */
-  function transfer(uint id, address to) external;
 }

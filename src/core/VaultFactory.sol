@@ -36,7 +36,6 @@ contract VaultFactory is IVaultFactory {
         collatOracle
       );
 
-      dNft.addLiquidator(address(vault)); 
       vaults[collat][collatOracle] = address(vault);
       isVault[address(vault)]      = true;
       emit Deploy(address(vault));

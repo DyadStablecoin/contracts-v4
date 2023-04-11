@@ -23,7 +23,6 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
     uint248 lastUpdated;
   }
 
-  mapping(address => bool)                         public isLiquidator;
   mapping(uint => mapping (address => Permission)) public id2permission; 
   mapping(uint => uint)                            public id2lastOwnershipChange; 
 
@@ -112,24 +111,6 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
       if (factory != address(0)) revert AlreadySet();
       factory = _factory;
       emit SetFactory(_factory);
-  }
-
-  /// @inheritdoc IDNft
-  function addLiquidator(address liquidator)
-    external 
-    {
-      if (msg.sender != factory) revert NotFactory();
-      isLiquidator[liquidator] = true;
-      emit AddLiquidator(liquidator);
-  }
-
-  /// @inheritdoc IDNft
-  function transfer(
-      uint id, 
-      address to 
-  ) external {
-      if (!isLiquidator[msg.sender]) revert NotLiquidator();
-      _transfer(ownerOf(id), to, id);
   }
 
   // We have to set `lastOwnershipChange` in order to reset permissions
