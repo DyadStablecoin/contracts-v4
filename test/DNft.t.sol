@@ -14,20 +14,20 @@ contract DNftsTest is BaseTest {
 
   // -------------------- mintNft --------------------
   function test_mintNft() public {
-    dNft.mintNft(address(this));
+    dNft.mintNft(0, address(this));
   }
   function testCannot_mintNft_publicMintsExceeded() public {
     for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
-      dNft.mintNft(address(this));
+      dNft.mintNft(0, address(this));
     }
     vm.expectRevert();
-    dNft.mintNft(address(this));
+    dNft.mintNft(0, address(this));
   }
 
   // -------------------- mintInsiderNft --------------------
   function test_mintInsiderNft() public {
     vm.prank(MAINNET_OWNER);
-    dNft.mintNft(address(this));
+    dNft.mintNft(0, address(this));
   }
   function testCannot_mintInsiderNft_NotOwner() public {
     vm.expectRevert();
@@ -35,7 +35,7 @@ contract DNftsTest is BaseTest {
   }
   function testCannot_mintInsiderNft_insiderMintsExceeded() public {
     for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
-      dNft.mintNft(address(this));
+      dNft.mintNft(0, address(this));
     }
     vm.expectRevert();
     dNft.mintInsiderNft(address(this));
@@ -43,7 +43,7 @@ contract DNftsTest is BaseTest {
 
   // -------------------- grant --------------------
   function test_grant() public {
-    uint id = dNft.mintNft(address(this));
+    uint id = dNft.mintNft(0, address(this));
     (bool hasPermission,) = dNft.id2permission(id, address(this));
     assertFalse(hasPermission);
     dNft.grant(id, address(this));
@@ -57,7 +57,7 @@ contract DNftsTest is BaseTest {
 
   // -------------------- revoke --------------------
   function test_revoke() public {
-    uint id = dNft.mintNft(address(this));
+    uint id = dNft.mintNft(0, address(this));
     dNft.grant(id, address(this));
     (bool hasPermission,) = dNft.id2permission(id, address(this));
     assertTrue(hasPermission);
