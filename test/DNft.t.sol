@@ -14,21 +14,20 @@ contract DNftsTest is BaseTest {
 
   // -------------------- mintNft --------------------
   function test_mintNft() public {
-    dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    dNft.mintNft(address(this));
   }
   function testCannot_mintNft_publicMintsExceeded() public {
     for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
-      dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+      dNft.mintNft(address(this));
     }
-    uint ethSacrifice = dNft.ETH_SACRIFICE();
     vm.expectRevert();
-    dNft.mintNft{value: ethSacrifice}(address(this));
+    dNft.mintNft(address(this));
   }
 
   // -------------------- mintInsiderNft --------------------
   function test_mintInsiderNft() public {
     vm.prank(MAINNET_OWNER);
-    dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    dNft.mintNft(address(this));
   }
   function testCannot_mintInsiderNft_NotOwner() public {
     vm.expectRevert();
@@ -36,27 +35,15 @@ contract DNftsTest is BaseTest {
   }
   function testCannot_mintInsiderNft_insiderMintsExceeded() public {
     for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
-      dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+      dNft.mintNft(address(this));
     }
     vm.expectRevert();
     dNft.mintInsiderNft(address(this));
   }
 
-  // -------------------- addLiquidator --------------------
-  function test_addLiquidator() public {
-    vm.prank(address(factory));
-    dNft.addLiquidator(address(this));
-    assertTrue(dNft.isLiquidator(address(this)));
-  }
-  function test_fail_addLiquidator_notFactory() public {
-    vm.expectRevert();
-    dNft.addLiquidator(address(this));
-    assertFalse(dNft.isLiquidator(address(this)));
-  }
-
   // -------------------- grant --------------------
   function test_grant() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(address(this));
     (bool hasPermission,) = dNft.id2permission(id, address(this));
     assertFalse(hasPermission);
     dNft.grant(id, address(this));
@@ -70,7 +57,7 @@ contract DNftsTest is BaseTest {
 
   // -------------------- revoke --------------------
   function test_revoke() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(address(this));
     dNft.grant(id, address(this));
     (bool hasPermission,) = dNft.id2permission(id, address(this));
     assertTrue(hasPermission);
