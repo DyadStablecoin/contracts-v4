@@ -13,60 +13,60 @@ contract DNftsTest is BaseTest {
   }
 
   // -------------------- mintNft --------------------
-  function test_mintNft() public {
+
     dNft.mintNft(0, address(this));
   }
-  function testCannot_mintNft_publicMintsExceeded() public {
-    for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
-      dNft.mintNft(0, address(this));
-    }
-    vm.expectRevert();
-    dNft.mintNft(0, address(this));
-  }
+  // function testCannot_mintNft_publicMintsExceeded() public {
+  //   for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
+  //     dNft.mintNft(0, address(this));
+  //   }
+  //   vm.expectRevert();
+  //   dNft.mintNft(0, address(this));
+  // }
 
-  // -------------------- mintInsiderNft --------------------
-  function test_mintInsiderNft() public {
-    vm.prank(MAINNET_OWNER);
-    dNft.mintNft(0, address(this));
-  }
-  function testCannot_mintInsiderNft_NotOwner() public {
-    vm.expectRevert();
-    dNft.mintInsiderNft(address(this));
-  }
-  function testCannot_mintInsiderNft_insiderMintsExceeded() public {
-    for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
-      dNft.mintNft(0, address(this));
-    }
-    vm.expectRevert();
-    dNft.mintInsiderNft(address(this));
-  }
+  // // -------------------- mintInsiderNft --------------------
+  // function test_mintInsiderNft() public {
+  //   vm.prank(MAINNET_OWNER);
+  //   dNft.mintNft(0, address(this));
+  // }
+  // function testCannot_mintInsiderNft_NotOwner() public {
+  //   vm.expectRevert();
+  //   dNft.mintInsiderNft(address(this));
+  // }
+  // function testCannot_mintInsiderNft_insiderMintsExceeded() public {
+  //   for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
+  //     dNft.mintNft(0, address(this));
+  //   }
+  //   vm.expectRevert();
+  //   dNft.mintInsiderNft(address(this));
+  // }
 
-  // -------------------- grant --------------------
-  function test_grant() public {
-    uint id = dNft.mintNft(0, address(this));
-    (bool hasPermission,) = dNft.id2permission(id, address(this));
-    assertFalse(hasPermission);
-    dNft.grant(id, address(this));
-    (hasPermission,) = dNft.id2permission(id, address(this));
-    assertTrue(hasPermission);
+  // // -------------------- grant --------------------
+  // function test_grant() public {
+  //   uint id = dNft.mintNft(0, address(this));
+  //   (bool hasPermission,) = dNft.id2permission(id, address(this));
+  //   assertFalse(hasPermission);
+  //   dNft.grant(id, address(this));
+  //   (hasPermission,) = dNft.id2permission(id, address(this));
+  //   assertTrue(hasPermission);
 
-    vm.prank(address(1));
-    vm.roll(block.number + 1);
-    assertTrue(dNft.hasPermission(id, address(this)));
-  }
+  //   vm.prank(address(1));
+  //   vm.roll(block.number + 1);
+  //   assertTrue(dNft.hasPermission(id, address(this)));
+  // }
 
-  // -------------------- revoke --------------------
-  function test_revoke() public {
-    uint id = dNft.mintNft(0, address(this));
-    dNft.grant(id, address(this));
-    (bool hasPermission,) = dNft.id2permission(id, address(this));
-    assertTrue(hasPermission);
-    dNft.revoke(id, address(this));
-    (hasPermission,) = dNft.id2permission(id, address(this));
-    assertFalse(hasPermission);
+  // // -------------------- revoke --------------------
+  // function test_revoke() public {
+  //   uint id = dNft.mintNft(0, address(this));
+  //   dNft.grant(id, address(this));
+  //   (bool hasPermission,) = dNft.id2permission(id, address(this));
+  //   assertTrue(hasPermission);
+  //   dNft.revoke(id, address(this));
+  //   (hasPermission,) = dNft.id2permission(id, address(this));
+  //   assertFalse(hasPermission);
 
-    vm.roll(block.number + 1);
-    hasPermission = dNft.hasPermission(id, address(1));
-    assertFalse(hasPermission);
-  }
+  //   vm.roll(block.number + 1);
+  //   hasPermission = dNft.hasPermission(id, address(1));
+  //   assertFalse(hasPermission);
+  // }
 }

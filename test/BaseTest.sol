@@ -8,6 +8,7 @@ import {DeployBase} from "../script/deploy/DeployBase.s.sol";
 import {DNft} from "../src/core/DNft.sol";
 import {Dyad} from "../src/core/Dyad.sol";
 import {OracleMock} from "./OracleMock.sol";
+import {ZoraMock} from "./ZoraMock.sol";
 import {Parameters} from "../src/Parameters.sol";
 import {Vault} from "../src/core/Vault.sol";
 import {VaultFactory} from "../src/core/VaultFactory.sol";
@@ -20,12 +21,14 @@ contract BaseTest is Test, Parameters {
   Vault        vault;
   VaultFactory factory;
   OracleMock   oracleMock;
+  ZoraMock     zoraMock;
   ERC20        collat;
 
   receive() external payable {}
 
   function setUp() public {
     oracleMock = new OracleMock();
+    zoraMock   = new ZoraMock();
     DeployBase deployBase = new DeployBase();
     (
       address _dNft,
@@ -46,6 +49,7 @@ contract BaseTest is Test, Parameters {
     vm.warp(block.timestamp + 1 days);
 
     deal(MAINNET_WETH, address(this), 1e18 ether);
+    zoraMock.safeMint(address(this), 0);
   }
 
   function overwrite(
