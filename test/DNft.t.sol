@@ -17,6 +17,11 @@ contract DNftsTest is BaseTest {
   function test_mintNft() public {
     dNft.mintNft(0, address(this));
   }
+  function testCannot_mintNft_sameTicket() public {
+    dNft.mintNft(0, address(this));
+    vm.expectRevert();
+    dNft.mintNft(0, address(this));
+  }
   // function testCannot_mintNft_publicMintsExceeded() public {
   //   for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
   //     dNft.mintNft(0, address(this));

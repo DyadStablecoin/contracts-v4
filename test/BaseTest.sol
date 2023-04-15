@@ -52,7 +52,6 @@ contract BaseTest is Test, Parameters {
 
     deal(MAINNET_WETH, address(this), 1e18 ether);
     zoraMock.safeMint(address(this), 0);
-    console.log(zoraMock.ownerOf(0));
   }
 
   function overwrite(
