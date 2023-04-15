@@ -34,22 +34,25 @@ contract BaseTest is Test, Parameters {
       address _dNft,
       address _dyad,
       address _vault, 
-      address _factory
+      address _factory, 
+      address _zora
     ) = deployBase.deploy(
       MAINNET_OWNER,
       MAINNET_WETH,
       MAINNET_WETH_SYMBOL, 
       address(oracleMock)
     );
-    dNft    = DNft(_dNft);
-    dyad    = Dyad(_dyad);
-    vault   = Vault(_vault);
-    collat  = ERC20(MAINNET_WETH);
-    factory = VaultFactory(_factory);
+    dNft     = DNft(_dNft);
+    dyad     = Dyad(_dyad);
+    vault    = Vault(_vault);
+    collat   = ERC20(MAINNET_WETH);
+    factory  = VaultFactory(_factory);
+    zoraMock = ZoraMock(_zora);
     vm.warp(block.timestamp + 1 days);
 
     deal(MAINNET_WETH, address(this), 1e18 ether);
     zoraMock.safeMint(address(this), 0);
+    console.log(zoraMock.ownerOf(0));
   }
 
   function overwrite(

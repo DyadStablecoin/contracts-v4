@@ -14,6 +14,7 @@ contract DNftsTest is BaseTest {
 
   // -------------------- mintNft --------------------
 
+  function test_mintNft() public {
     dNft.mintNft(0, address(this));
   }
   // function testCannot_mintNft_publicMintsExceeded() public {

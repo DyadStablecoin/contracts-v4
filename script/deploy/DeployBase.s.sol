@@ -21,7 +21,7 @@ contract DeployBase is Script, Parameters {
   )
     public 
     payable 
-    returns (address, address, address, address) {
+    returns (address, address, address, address, address) {
       vm.startBroadcast();
 
       ZoraMock     zora    = new ZoraMock();
@@ -41,7 +41,8 @@ contract DeployBase is Script, Parameters {
         address(dNft),
         address(Vault(vault).dyad()),
         address(vault),
-        address(factory)
+        address(factory), 
+        address(zora)
       );
   }
 }
