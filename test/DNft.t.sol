@@ -22,13 +22,16 @@ contract DNftsTest is BaseTest {
     vm.expectRevert();
     dNft.mintNft(0, address(this));
   }
-  // function testCannot_mintNft_publicMintsExceeded() public {
-  //   for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
-  //     dNft.mintNft(0, address(this));
-  //   }
-  //   vm.expectRevert();
-  //   dNft.mintNft(0, address(this));
-  // }
+  function testCannot_mintNft_publicMintsExceeded() public {
+    for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
+      dNft.mintNft(i, address(this));
+      zoraMock.safeMint(address(this), i+1);
+    }
+    uint id = dNft.PUBLIC_MINTS()+1;
+    zoraMock.safeMint(address(this), id);
+    vm.expectRevert();
+    dNft.mintNft(id, address(this));
+  }
 
   // // -------------------- mintInsiderNft --------------------
   // function test_mintInsiderNft() public {
