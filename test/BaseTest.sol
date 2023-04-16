@@ -8,6 +8,7 @@ import {DeployBase} from "../script/deploy/DeployBase.s.sol";
 import {DNft} from "../src/core/DNft.sol";
 import {Dyad} from "../src/core/Dyad.sol";
 import {OracleMock} from "./OracleMock.sol";
+import {ZoraMock} from "./ZoraMock.sol";
 import {Parameters} from "../src/Parameters.sol";
 import {Vault} from "../src/core/Vault.sol";
 import {VaultFactory} from "../src/core/VaultFactory.sol";
@@ -20,32 +21,37 @@ contract BaseTest is Test, Parameters {
   Vault        vault;
   VaultFactory factory;
   OracleMock   oracleMock;
+  ZoraMock     zoraMock;
   ERC20        collat;
 
   receive() external payable {}
 
   function setUp() public {
     oracleMock = new OracleMock();
+    zoraMock   = new ZoraMock();
     DeployBase deployBase = new DeployBase();
     (
       address _dNft,
       address _dyad,
       address _vault, 
-      address _factory
+      address _factory, 
+      address _zora
     ) = deployBase.deploy(
       MAINNET_OWNER,
       MAINNET_WETH,
       MAINNET_WETH_SYMBOL, 
       address(oracleMock)
     );
-    dNft    = DNft(_dNft);
-    dyad    = Dyad(_dyad);
-    vault   = Vault(_vault);
-    collat  = ERC20(MAINNET_WETH);
-    factory = VaultFactory(_factory);
+    dNft     = DNft(_dNft);
+    dyad     = Dyad(_dyad);
+    vault    = Vault(_vault);
+    collat   = ERC20(MAINNET_WETH);
+    factory  = VaultFactory(_factory);
+    zoraMock = ZoraMock(_zora);
     vm.warp(block.timestamp + 1 days);
 
     deal(MAINNET_WETH, address(this), 1e18 ether);
+    zoraMock.safeMint(address(this), 0);
   }
 
   function overwrite(

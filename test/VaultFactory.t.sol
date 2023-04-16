@@ -6,7 +6,6 @@ import {BaseTest} from "./BaseTest.sol";
 contract VaultFactoryTest is BaseTest {
   function test_correctDeployment() public {
     assertTrue(factory.vaults(MAINNET_WETH, address(oracleMock)) != address(0));
-    assertTrue(dNft.isLiquidator(address(vault)));
     assertTrue(address(vault.dNft())   != address(0));
     assertTrue(address(vault.collat()) != address(0));
     assertTrue(address(vault.oracle()) != address(0));

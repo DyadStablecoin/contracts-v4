@@ -10,7 +10,7 @@ contract VaultTest is BaseTest {
   }
   // -------------------- deposit --------------------
   function test_deposit() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     assertEq(vault.id2collat(id), 0 ether);
     deposit(id, 10 ether);
     assertEq(vault.id2collat(id), 10 ether);
@@ -18,25 +18,25 @@ contract VaultTest is BaseTest {
 
   // -------------------- withdraw --------------------
   function test_withdraw() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.withdraw(id, address(this), 1 ether);
   }
   function testCannot_withdraw_notNftOwner() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vm.prank(address(1));
     vm.expectRevert();
     vault.withdraw(id, address(this), 1 ether);
   }
   function testCannot_withdraw_moreThanCollateral() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vm.expectRevert();
     vault.withdraw(id, address(this), 2 ether);
   }
   function testCannot_withdraw_moreThanCollateralRatio() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.mintDyad(id, address(this), 300 ether);
     vm.expectRevert();
@@ -45,19 +45,19 @@ contract VaultTest is BaseTest {
 
   // -------------------- mintDyad --------------------
   function test_mintDyad() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.mintDyad(id, address(this), 300 ether);
   }
   function testCannot_mintDyad_notNftOwner() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vm.prank(address(1));
     vm.expectRevert();
     vault.mintDyad(id, address(this), 300 ether);
   }
   function testCannot_mintDyad_moreThanCollateralRatio() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vm.expectRevert();
     vault.mintDyad(id, address(this), 400 ether);
@@ -65,7 +65,7 @@ contract VaultTest is BaseTest {
 
   // -------------------- liquidate --------------------
   function test_liquidate() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.mintDyad(id, address(this), 300 ether);
     oracleMock.setPrice(100e8);
@@ -75,13 +75,13 @@ contract VaultTest is BaseTest {
     assertTrue(collatBefore < vault.id2collat(id));
   }
   function testCannot_liquidate_CrTooHigh() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vm.expectRevert();
     vault.liquidate(id, address(1), 10 ether);
   }
   function testCannot_liquidate_CrTooLow() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.mintDyad(id, address(this), 300 ether);
     oracleMock.setPrice(100e8);
@@ -91,7 +91,7 @@ contract VaultTest is BaseTest {
 
   // -------------------- redeem --------------------
   function test_redeem() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.mintDyad(id, address(this), 300 ether);
     assertEq(dyad.balanceOf(address(this)), 300 ether);
@@ -107,7 +107,7 @@ contract VaultTest is BaseTest {
     assertEq(vault.id2dyad(id), 0);
   }
   function testCannot_redeem_notNftOwner() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.mintDyad(id, address(this), 300 ether);
     vm.prank(address(1));
@@ -115,7 +115,7 @@ contract VaultTest is BaseTest {
     vault.redeem(id, address(this), 300 ether);
   }
   function testCannot_redeem_moreThanWithdrawn() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     deposit(id, 1 ether);
     vault.mintDyad(id, address(this), 300 ether);
     vm.expectRevert();

@@ -101,7 +101,6 @@ contract Vault is IVault {
       if (_collatRatio(id) >= MIN_COLLATERIZATION_RATIO) revert CrTooHigh(); 
       deposit(id, amount);
       if (_collatRatio(id) <  MIN_COLLATERIZATION_RATIO) revert CrTooLow(); 
-      dNft.transfer(id, to);
       emit Liquidate(id, to);
   }
 

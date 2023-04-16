@@ -13,50 +13,46 @@ contract DNftsTest is BaseTest {
   }
 
   // -------------------- mintNft --------------------
+
   function test_mintNft() public {
-    dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    dNft.mintNft(0, address(this));
+  }
+  function testCannot_mintNft_sameTicket() public {
+    dNft.mintNft(0, address(this));
+    vm.expectRevert();
+    dNft.mintNft(0, address(this));
   }
   function testCannot_mintNft_publicMintsExceeded() public {
     for(uint i = 0; i < dNft.PUBLIC_MINTS(); i++) {
-      dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+      dNft.mintNft(i, address(this));
+      zoraMock.safeMint(address(this), i+1);
     }
-    uint ethSacrifice = dNft.ETH_SACRIFICE();
+    uint id = dNft.PUBLIC_MINTS()+1;
+    zoraMock.safeMint(address(this), id);
     vm.expectRevert();
-    dNft.mintNft{value: ethSacrifice}(address(this));
+    dNft.mintNft(id, address(this));
   }
 
-  // -------------------- mintInsiderNft --------------------
-  function test_mintInsiderNft() public {
-    vm.prank(MAINNET_OWNER);
-    dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
-  }
-  function testCannot_mintInsiderNft_NotOwner() public {
-    vm.expectRevert();
-    dNft.mintInsiderNft(address(this));
-  }
-  function testCannot_mintInsiderNft_insiderMintsExceeded() public {
-    for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
-      dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
-    }
-    vm.expectRevert();
-    dNft.mintInsiderNft(address(this));
-  }
-
-  // -------------------- addLiquidator --------------------
-  function test_addLiquidator() public {
-    vm.prank(address(factory));
-    dNft.addLiquidator(address(this));
-    assertTrue(dNft.isLiquidator(address(this)));
-  }
-  function test_fail_addLiquidator_notFactory() public {
-    vm.expectRevert();
-    dNft.addLiquidator(address(this));
-    assertFalse(dNft.isLiquidator(address(this)));
-  }
+  // // -------------------- mintInsiderNft --------------------
+  // function test_mintInsiderNft() public {
+  //   vm.prank(MAINNET_OWNER);
+  //   dNft.mintNft(0, address(this));
+  // }
+  // function testCannot_mintInsiderNft_NotOwner() public {
+  //   vm.expectRevert();
+  //   dNft.mintInsiderNft(address(this));
+  // }
+  // function testCannot_mintInsiderNft_insiderMintsExceeded() public {
+  //   for(uint i = 0; i < dNft.INSIDER_MINTS(); i++) {
+  //     dNft.mintNft(0, address(this));
+  //   }
+  //   vm.expectRevert();
+  //   dNft.mintInsiderNft(address(this));
+  // }
 
   // -------------------- grant --------------------
   function test_grant() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     (bool hasPermission,) = dNft.id2permission(id, address(this));
     assertFalse(hasPermission);
     dNft.grant(id, address(this));
@@ -70,7 +66,7 @@ contract DNftsTest is BaseTest {
 
   // -------------------- revoke --------------------
   function test_revoke() public {
-    uint id = dNft.mintNft{value: dNft.ETH_SACRIFICE()}(address(this));
+    uint id = dNft.mintNft(0, address(this));
     dNft.grant(id, address(this));
     (bool hasPermission,) = dNft.id2permission(id, address(this));
     assertTrue(hasPermission);
